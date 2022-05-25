@@ -1,0 +1,15 @@
+.popup__input {
+	max-width: 358px;
+	max-height: 14px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	border: none;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+	padding-bottom: 13px;
+	margin-bottom: 30px;
+}
+
+.popup__input:nth-child(odd) {
+	margin-bottom: 48px;
+}

@@ -1,3 +1,10 @@
 .element__like {
-	padding-right: 16px;
+	padding-right: 23px;
+	background: url(../../../images/like.svg) no-repeat;
+	background-position: center;
+}
+
+.element__like:hover {
+	opacity: .5;
+	cursor: pointer;
 }

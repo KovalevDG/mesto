@@ -28,7 +28,7 @@
           <img class="element__image" src="./images/karachaevsk.jpg" alt="вид на горную церковь">
           <div class="element__description">
             <h2 class="element__text">Карачаевск</h2>
-            <img class="element__like" src="./images/like.svg" alt="символ сердечка">
+            <div class="element__like"></div>
           </div>
         </div>
 
@@ -36,7 +36,7 @@
           <img class="element__image" src="./images/gora-elbrus.jpg" alt="вид на Эльбрус">
           <div class="element__description">
             <h2 class="element__text">Гора Эльбрус</h2>
-            <img class="element__like" src="./images/like.svg" alt="символ сердечка">
+            <div class="element__like"></div>
           </div>
         </div>
 
@@ -44,7 +44,7 @@
           <img class="element__image" src="./images/dombay.jpg" alt="вид на Домбай">
           <div class="element__description">
             <h2 class="element__text">Домбай</h2>
-            <img class="element__like" src="./images/like.svg" alt="символ сердечка">
+            <div class="element__like"></div>
           </div>
         </div>
 
@@ -52,7 +52,7 @@
           <img class="element__image" src="./images/gora-elbrus.jpg" alt="вид на Эльбрус">
           <div class="element__description">
             <h2 class="element__text">Гора Эльбрус</h2>
-            <img class="element__like" src="./images/like.svg" alt="символ сердечка">
+            <div class="element__like"></div>
           </div>
         </div>
 
@@ -60,7 +60,7 @@
           <img class="element__image" src="./images/dombay.jpg" alt="вид на Домбай">
           <div class="element__description">
             <h2 class="element__text">Домбай</h2>
-            <img class="element__like" src="./images/like.svg" alt="символ сердечка">
+            <div class="element__like"></div>
           </div>
         </div>
 
@@ -68,7 +68,7 @@
           <img class="element__image" src="./images/karachaevsk.jpg" alt="вид на горную церковь">
           <div class="element__description">
             <h2 class="element__text">Карачаево-Черкесия</h2>
-            <img class="element__like" src="./images/like.svg" alt="символ сердечка">
+            <div class="element__like"></div>
           </div>
         </div>
 
@@ -77,6 +77,15 @@
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
+    <div class="popup popup_opened">
+      <form class="popup__container" action="#" method="post">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input class="popup__input" type="text" id="name" name="user-name" value="Жак-Ив Кусто">
+        <input class="popup__input" type="text" id="name" name="user-name" value="Исследователь океана">
+        <button class="popup__button" type="submit">Сохранить</button>
+        <div class="popup__button-close"></div>
+      </form>
+    </div>
   </div>
 </body>
 </html>
