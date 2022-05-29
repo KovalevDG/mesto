@@ -8,3 +8,9 @@
 	font-style: normal;
 	color: #FFFFFF;
 }
+
+@media all and (max-width: 320px) {
+	.page {
+		padding: 28px 0px 36px 0px;
+	}
+}

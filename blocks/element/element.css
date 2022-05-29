@@ -3,3 +3,9 @@
 	display: inline-block;
 	color: #000000;
 }
+
+@media all and (max-width: 320px) {
+	.element {
+		margin: 0 auto;
+	}
+}
