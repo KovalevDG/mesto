@@ -7,7 +7,7 @@
 	align-items: end;
 }
 
-@media all and (max-width: 320px) {
+@media screen and (max-width: 670px) {
 	.profile__user-name {
 		font-size: 27px;
 		line-height: 32.68px;
@@ -15,3 +15,12 @@
 		padding-top: 26px;
 	}	
 }
+
+/*@media all and (max-width: 320px) {
+	.profile__user-name {
+		font-size: 27px;
+		line-height: 32.68px;
+		text-align: right;
+		padding-top: 26px;
+	}	
+}*/

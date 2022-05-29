@@ -3,7 +3,7 @@
 	align-content: center;
 }
 
-@media all and (max-width: 320px) {
+@media all and (max-width: 610px) {
 	.profile__info {
 		flex-direction: column;
 		padding-bottom: 36px;

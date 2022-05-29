@@ -6,7 +6,7 @@
 	line-height: 22px;
 }
 
-@media all and (max-width: 320px) {
+@media all and (max-width: 670px) {
 	.profile__user-job {
 		text-align: center;
 		font-size: 14px;
