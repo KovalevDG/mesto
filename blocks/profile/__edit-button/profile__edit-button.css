@@ -6,6 +6,7 @@
 	display: flex;
 	justify-content: center;
 	align-content: center;
+	background: url(../../../images/edit-button.svg) 50% 50% rgba(0, 0, 0, 0) no-repeat;
 }
 
 .profile__edit-button:hover {

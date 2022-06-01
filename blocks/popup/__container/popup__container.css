@@ -1,7 +1,6 @@
 .popup__container {
 	max-width: 430px;
-	max-height: 330px;
-	position: absolute;
+	min-height: 330px;
 	display: flex;
 	flex-direction: column;
 	padding: 34px 36px 37px 36px;
@@ -15,7 +14,7 @@
 @media all and (max-width: 320px) {
 	.popup__container {
 		width: 282px;
-		max-height: 322px;
+		min-height: 322px;
 		padding: 25px 22px;
 		align-items: center;
 	}

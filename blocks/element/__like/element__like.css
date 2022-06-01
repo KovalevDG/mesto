@@ -1,7 +1,8 @@
 .element__like {
 	padding-right: 23px;
-	background: url(../../../images/like.svg) no-repeat;
+	background: url(../../../images/like.svg) 50% 50% rgba(0, 0, 0, 0) no-repeat;
 	background-position: center;
+	border: 0;
 }
 
 .element__like:hover {

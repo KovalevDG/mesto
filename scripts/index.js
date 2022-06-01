@@ -1,29 +1,30 @@
 let editButton = document.querySelector('.profile__edit-button');
+let profileUserName = document.querySelector('.profile__user-name');
+let profileUserJob = document.querySelector('.profile__user-job');
 let submitButton = document.querySelector('.popup__button');
 let closeButton = document.querySelector('.popup__button-close');
 let formElement = document.querySelector('.popup__container');
 let nameInput = formElement.querySelector('[name=user-name]');
 let jobInput = formElement.querySelector('[name=user-job]');
+let popup = document.querySelector('.popup');
 
 function showPopup() {
-	console.log('Похоже, что кнопку нажали');
-	let popup = document.querySelector('.popup');
+	nameInput.value = document.querySelector('.profile__user-name').textContent;
+	jobInput.value = document.querySelector('.profile__user-job').textContent;
 	popup.classList.add('popup_opened');
 }
 
 function submitPopup (evt) {
 	evt.preventDefault();
-	console.log('Похоже, что нажата кнопка сохранить');
-	document.querySelector('.profile__user-name').textContent = nameInput.value;
-	document.querySelector('.profile__user-job').textContent = jobInput.value;
+	profileUserName.textContent = nameInput.value;
+	profileUserJob.textContent = jobInput.value;
+	closePopup();
 }
 
 function closePopup() {
-	console.log('Похоже, что форму пора закрыть');
-	let popup_opened = document.querySelector('.popup_opened');
-	popup_opened.classList.remove('popup_opened');
+	popup.classList.remove('popup_opened');
 }
 
 editButton.addEventListener('click', showPopup);
-submitButton.addEventListener('submit', submitPopup);
+formElement.addEventListener('submit', submitPopup);
 closeButton.addEventListener('click', closePopup);

@@ -3,9 +3,9 @@
 	height: 50px;
 	border: 2px solid #FFFFFF;
 	border-radius: 2px;
-	display: flex;
-	justify-content: center;
-	align-content: center;
+	margin-left: auto;
+	padding: 0;
+	background: url(../../../images/add-button.svg) 50% 50% rgba(0, 0, 0, 0) no-repeat;
 }
 
 .profile__add-button:hover {

@@ -5,9 +5,3 @@
 	grid-gap: 17px;
 	grid-row-gap: 20px;	
 }
-
-@media all and (max-width: 320px) {
-	.elements {
-
-	}
-}
