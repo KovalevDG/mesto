@@ -15,7 +15,7 @@
 	cursor: pointer;
 }
 
-@media all and (max-width: 320px) {
+@media all and (max-width: 597px) {
 	.popup__button {
 		width: 238px;
 		height: 46px;

@@ -4,9 +4,10 @@
 	position: relative;
 	background: url(../../../images/close.svg) 50% 50% rgba(0, 0, 0, 0) no-repeat;
 	background-size: cover;
+	box-sizing: border-box;
 	border: 0;
-	top: -72px;
-	right: -400px;
+	top: -42px;
+	right: -403px;
 	z-index: 1;
 }
 
@@ -15,11 +16,11 @@
 	cursor: pointer;
 }
 
-@media all and (max-width: 320px) {
+@media all and (max-width: 597px) {
 	.popup__button-close {
 		width: 20px;
 		height: 20px;
-		top: -36px;
-		right: 0;
+		top: -62px;
+		right: -131px;
 	}
 }
