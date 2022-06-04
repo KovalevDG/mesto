@@ -1,13 +1,13 @@
 .popup__button-close {
 	width: 32px;
 	height: 32px;
-	position: relative;
+	position: absolute;
 	background: url(../../../images/close.svg) 50% 50% rgba(0, 0, 0, 0) no-repeat;
 	background-size: cover;
 	box-sizing: border-box;
 	border: 0;
 	top: -42px;
-	left: -40px; /*При таких параметрах кнопка оказывается смещена в лево popup*/
+	right: -40px;
 	z-index: 1;
 }
 
@@ -21,6 +21,6 @@
 		width: 20px;
 		height: 20px;
 		top: -36px;
-		left: 0; /*При таких параметрах кнопка оказывается по середине popup*/
+		right: 0;
 	}
 }
