@@ -22,11 +22,11 @@
         <button class="profile__add-button" type="button"></button>
       </section>
       <div class="elements">
-        <article class="element">
+        <!-- <article class="element">
           <img class="element__image" src="./images/karachaevsk.jpg" alt="вид на горную церковь">
           <div class="element__description">
             <h2 class="element__text">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
+            <button class="element__like element_like-active" type="button"></button>
           </div>
         </article>
         <article class="element">
@@ -63,7 +63,7 @@
             <h2 class="element__text">Карачаево-Черкесия</h2>
             <button class="element__like" type="button"></button>
           </div>
-        </article>
+        </article> -->
       </div>
     </main>
     <footer class="footer">
@@ -81,6 +81,15 @@
       </div>
     </div>
   </div>
+  <template id="card">
+    <article class="element">
+      <img class="element__image" alt="вид на горную церковь">
+      <div class="element__description">
+        <h2 class="element__text"></h2>
+        <button class="element__like" type="button"></button>
+      </div>
+    </article>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
