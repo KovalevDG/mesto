@@ -1,9 +1,11 @@
 .element {
 	max-width: 282px;
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	color: #000000;
 	justify-self: center;
+	box-sizing: border-box;
 }
 
 @media all and (max-width: 320px) {

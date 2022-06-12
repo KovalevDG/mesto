@@ -21,69 +21,36 @@
         </div>
         <button class="profile__add-button" type="button"></button>
       </section>
-      <div class="elements">
-        <!-- <article class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg" alt="вид на горную церковь">
-          <div class="element__description">
-            <h2 class="element__text">Карачаевск</h2>
-            <button class="element__like element_like-active" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/gora-elbrus.jpg" alt="вид на Эльбрус">
-          <div class="element__description">
-            <h2 class="element__text">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/dombay.jpg" alt="вид на Домбай">
-          <div class="element__description">
-            <h2 class="element__text">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/gora-elbrus.jpg" alt="вид на Эльбрус">
-          <div class="element__description">
-            <h2 class="element__text">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/dombay.jpg" alt="вид на Домбай">
-          <div class="element__description">
-            <h2 class="element__text">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg" alt="вид на горную церковь">
-          <div class="element__description">
-            <h2 class="element__text">Карачаево-Черкесия</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </article> -->
-      </div>
+      <div class="elements"></div>
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
-      <div class="popup__container">
-        <button class="popup__button-close" type="button"></button>
-        <h3 class="popup__title">Редактировать профиль</h3>
-        <form class="popup__form" name="user-form" action="#" method="post">
-          <input class="popup__input" type="text" id="name" name="user-name" value="Жак-Ив Кусто">
-          <input class="popup__input" type="text" id="job" name="user-job" value="Исследователь океана">
-          <button class="popup__button" type="submit">Сохранить</button>
-        </form>
-      </div>
-    </div>
+    <div class="popup"></div>
+    <div class="popup-image"></div>
   </div>
+  <template id="popup">
+    <div class="popup__container">
+      <button class="popup__button-close" type="button"></button>
+      <h3 class="popup__title"></h3>
+      <form class="popup__form" name="form" action="#" method="post">
+        <input class="popup__input" type="text" id="" name="fiald1" value="">
+        <input class="popup__input" type="text" id="" name="fiald2" value="">
+        <button class="popup__button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </template>
+  <template id="popup-image">
+    <div class="popup-image__container">
+      <button class="popup-image__button-close" type="button"></button>
+      <img class="popup-image__image" src="#" alt="">
+      <h3 class="popup-image__title"></h3>
+    </div>
+  </template>
   <template id="card">
     <article class="element">
-      <img class="element__image" alt="вид на горную церковь">
+      <img class="element__image" alt="">
+      <button class="element__delete" type="button"></button>
       <div class="element__description">
         <h2 class="element__text"></h2>
         <button class="element__like" type="button"></button>

@@ -1,0 +1,14 @@
+.element__delete {
+	border: 0;
+	width: 18px;
+	height: 19px;
+	background: url(../../../images/delIcon.svg) 50% 50% rgba(0, 0, 0, 0) no-repeat;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+.element__delete:hover {
+	opacity: .5;
+	cursor: pointer;
+}
