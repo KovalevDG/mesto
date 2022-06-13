@@ -1,7 +1,6 @@
 .popup-image_opened {
-	/*display: flex;*/
+	display: flex;
 	align-items: center;
-	align-content: center;
 	justify-content: center;
 	visibility: visible;
 	opacity: 1;

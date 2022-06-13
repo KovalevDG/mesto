@@ -52,6 +52,7 @@ function showPopupImage(title, link) {
 function showPopup(items) {
 	const popup = document.querySelector('#popup').content;
 	let form = popup.querySelector('.popup__container').cloneNode(true);
+	
 	form.querySelector('.popup__title').textContent = items[0];
 	form.querySelector('[name=fiald1]').id = items[1];
 	form.querySelector('[name=fiald1]').placeholder = items[2];
@@ -59,6 +60,12 @@ function showPopup(items) {
 	form.querySelector('[name=fiald2]').id = items[4];
 	form.querySelector('[name=fiald2]').placeholder = items[5];
 	form.querySelector('[name=fiald2]').value = items[6];
+
+	if (items[7] === 'addButton') {
+		form.querySelector('.popup__button').textContent = 'Создать';
+	} else if (items[7] === 'editButton') {
+		form.querySelector('.popup__button').textContent = 'Сохранить';
+	}
 
 	form.querySelector('.popup__form').addEventListener('submit', (evt) => {
 		evt.preventDefault();
@@ -109,7 +116,7 @@ function addCard(name, link) {
 				element.remove();
 			}
 		);
-	element.addEventListener('click', (evt) => {
+	element.querySelector('.element__image').addEventListener('click', (evt) => {
 			evt.preventDefault();
 			showPopupImage(evt.target.alt, evt.target.src);
 		}
