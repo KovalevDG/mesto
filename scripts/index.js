@@ -1,14 +1,23 @@
+const popupProfileActive = document.querySelector('.popup-edit-profile');
+const closeButtonProfile = popupProfileActive.querySelector('.popup-edit-profile__button-close');
+const formElementProfile = popupProfileActive.querySelector('.popup-edit-profile__form'); 
 const editButton = document.querySelector('.profile__edit-button');
 const nameInput = document.querySelector('[name=user-name]');
 const jobInput = document.querySelector('[name=user-job]');
 const profileUserName = document.querySelector('.profile__user-name');
 const profileUserJob = document.querySelector('.profile__user-job');
-const closeButtonProfile = document.querySelector('.popup-edit-profile__button-close');
 
 const addButton = document.querySelector('.profile__add-button');
-const popupImageActive = document.querySelector('.popup-image');
-const popupProfileActive = document.querySelector('.popup-edit-profile');
+const titleInput = document.querySelector('[name=card-title]');
+const linkInput = document.querySelector('[name=card-link]');
+const formElementAddCard = document.querySelector('.popup-add-card__form');
 const popupCardActive = document.querySelector('.popup-add-card');
+const closeButtonAddCard = document.querySelector('.popup-add-card__button-close')
+
+const popupImageActive = document.querySelector('.popup-image');
+const closeButtonImage = popupImageActive.querySelector('.popup-image__button-close')
+const cardTitle = popupImageActive.querySelector('.popup-image__title');
+const cardLink = popupImageActive.querySelector('.popup-image__image');
 const elements = document.querySelector('.elements');
 const initialCards = [
   {
@@ -39,9 +48,35 @@ const initialCards = [
 
 function showPopupEdit() {
 	nameInput.value = profileUserName.textContent; 
-	jobInput.value = profileUserJob.textContent; 
+	jobInput.value = profileUserJob.textContent;
 	openPopup(popupProfileActive, 'popup-edit-profile_opened'); 
-} 
+}
+
+function submitPopupProfile (evt) {
+	evt.preventDefault();
+	profileUserName.textContent = nameInput.value;
+	profileUserJob.textContent = jobInput.value;
+	closePopup(popupProfileActive, 'popup-edit-profile_opened');
+}
+
+function showPopupAddCard() { 
+	openPopup(popupCardActive, 'popup-add-card_opened'); 
+}
+
+function submitPopupAddCard (evt) {
+	evt.preventDefault();
+	console.log(titleInput.value, linkInput.value);
+	if (titleInput.value !== '' && linkInput.value !== ''){
+		addCard(titleInput.value, linkInput.value);
+		closePopup(popupCardActive, 'popup-add-card_opened');
+	} else {
+		alert('Необходимо заполнить поля Название и Ссылка на картинку');
+	}
+}
+
+function showPopupImage () {
+	openPopup(popupImageActive, 'popup-image_opened');
+}
 
 function openPopup (window, className) {
 	window.classList.add(className);
@@ -49,16 +84,6 @@ function openPopup (window, className) {
 
 function closePopup (window, className) {
 	window.classList.toggle(className)
-}
-
-function submitPopupProfile (evt) {
-	evt.preventDefault();
-
-	console.log(nameInput.value);
-
-	profileUserName.textContent = nameInput.value;
-	profileUserJob.textContent = jobInput.value;
-	closePopup(popupProfileActive, 'popup-edit-profile_opened');
 }
 
 function addCard(name, link) {
@@ -79,7 +104,9 @@ function addCard(name, link) {
 			}
 		);
 	element.querySelector('.element__image').addEventListener('click', () => {
-			openPopup(popupImageActive, 'popup-image_opened');
+			cardTitle.textContent = element.querySelector('.element__text').textContent;
+			cardLink.src = element.querySelector('.element__image').src;
+			showPopupImage ();
 		}
 	);
 
@@ -87,8 +114,14 @@ function addCard(name, link) {
 }
 
 editButton.addEventListener('click', () => showPopupEdit());
-addButton.addEventListener('click', () => openPopup(popupCardActive, 'popup-add-card_opened'));
-closeButtonProfile.addEventListener('click', () => closePopup(popupProfileActive, 'popup-edit-profile_opened')); 
+addButton.addEventListener('click', () => showPopupAddCard());
+formElementProfile.addEventListener('submit', submitPopupProfile);
+formElementAddCard.addEventListener('submit', submitPopupAddCard);
+
+
+closeButtonProfile.addEventListener('click', () => closePopup(popupProfileActive, 'popup-edit-profile_opened'));
+closeButtonAddCard.addEventListener('click', () => closePopup(popupCardActive, 'popup-add-card_opened'));
+closeButtonImage.addEventListener('click', () => closePopup(popupImageActive, 'popup-image_opened'));
 
 initialCards.forEach(function (item) {
 	addCard(item.name, item.link);
