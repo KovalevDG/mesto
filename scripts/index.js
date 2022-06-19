@@ -1,10 +1,15 @@
-let editButton = document.querySelector('.profile__edit-button');
-let profileUserName = document.querySelector('.profile__user-name');
-let profileUserJob = document.querySelector('.profile__user-job');
-let addButton = document.querySelector('.profile__add-button');
-let popupActive = document.querySelector('.popup');
-let popupImageActive = document.querySelector('.popup-image');
-let elements = document.querySelector('.elements');
+const editButton = document.querySelector('.profile__edit-button');
+const nameInput = document.querySelector('[name=user-name]');
+const jobInput = document.querySelector('[name=user-job]');
+const profileUserName = document.querySelector('.profile__user-name');
+const profileUserJob = document.querySelector('.profile__user-job');
+const closeButtonProfile = document.querySelector('.popup-edit-profile__button-close');
+
+const addButton = document.querySelector('.profile__add-button');
+const popupImageActive = document.querySelector('.popup-image');
+const popupProfileActive = document.querySelector('.popup-edit-profile');
+const popupCardActive = document.querySelector('.popup-add-card');
+const elements = document.querySelector('.elements');
 const initialCards = [
   {
     name: 'Архыз',
@@ -32,83 +37,40 @@ const initialCards = [
   }
 ];
 
-function showPopupImage(title, link) {
-	const popupImage = document.querySelector('#popup-image').content;
-	let image = popupImage.querySelector('.popup-image__container').cloneNode(true);
-	image.querySelector('.popup-image__title').textContent = title;
-	image.querySelector('.popup-image__image').src = link;
-	image.querySelector('.popup-image__image').alt = title;
+function showPopupEdit() {
+	nameInput.value = profileUserName.textContent; 
+	jobInput.value = profileUserJob.textContent; 
+	openPopup(popupProfileActive, 'popup-edit-profile_opened'); 
+} 
 
-
-	image.querySelector('.popup-image__button-close').addEventListener('click', () => {
-		popupImageActive.classList.remove('popup-image_opened');
-		image.remove();
-	});
-
-	popupImageActive.append(image);
-	popupImageActive.classList.add('popup-image_opened');
+function openPopup (window, className) {
+	window.classList.add(className);
 }
 
-function showPopup(items) {
-	const popup = document.querySelector('#popup').content;
-	let form = popup.querySelector('.popup__container').cloneNode(true);
-	
-	form.querySelector('.popup__title').textContent = items[0];
-	form.querySelector('[name=fiald1]').id = items[1];
-	form.querySelector('[name=fiald1]').placeholder = items[2];
-	form.querySelector('[name=fiald1]').value = items[3];
-	form.querySelector('[name=fiald2]').id = items[4];
-	form.querySelector('[name=fiald2]').placeholder = items[5];
-	form.querySelector('[name=fiald2]').value = items[6];
-
-	if (items[7] === 'addButton') {
-		form.querySelector('.popup__button').textContent = 'Создать';
-	} else if (items[7] === 'editButton') {
-		form.querySelector('.popup__button').textContent = 'Сохранить';
-	}
-
-	form.querySelector('.popup__form').addEventListener('submit', (evt) => {
-		evt.preventDefault();
-		if (items[7] === 'addButton') {
-			if (form.querySelector('[name=fiald1]').value || form.querySelector('[name=fiald2]').value) {
-				addCard(form.querySelector('[name=fiald1]').value, form.querySelector('[name=fiald2]').value);
-			} else {
-				alert('Поля должны быть заполнены!');
-			}
-		} else if (items[7] === 'editButton') {
-			profileUserName.textContent = form.querySelector('[name=fiald1]').value;
-			profileUserJob.textContent = form.querySelector('[name=fiald2]').value;
-		}
-		popupActive.classList.remove('popup_opened');
-		form.remove();
-	});
-
-	form.querySelector('.popup__button-close').addEventListener('click', () => {
-		popupActive.classList.remove('popup_opened');
-		form.remove();
-	});
-
-	popupActive.append(form);
-	popupActive.classList.add('popup_opened');
+function closePopup (window, className) {
+	window.classList.toggle(className)
 }
 
-function submitPopup (evt) {
+function submitPopupProfile (evt) {
 	evt.preventDefault();
+
+	console.log(nameInput.value);
+
 	profileUserName.textContent = nameInput.value;
 	profileUserJob.textContent = jobInput.value;
-	closePopup();
+	closePopup(popupProfileActive, 'popup-edit-profile_opened');
 }
 
 function addCard(name, link) {
 	const card = document.querySelector('#card').content;
-	let element = card.querySelector('.element').cloneNode(true);
+	const element = card.querySelector('.element').cloneNode(true);
 	
 	element.querySelector('.element__image').src = link;
 	element.querySelector('.element__image').alt = name;
 	element.querySelector('.element__text').textContent = name;
 
 	element.querySelector('.element__like').addEventListener('click', (evt) => {
-				evt.target.classList.toggle('element_like-active', true);
+				evt.target.classList.toggle('element_like-active');
 			}
 		);
 
@@ -116,46 +78,18 @@ function addCard(name, link) {
 				element.remove();
 			}
 		);
-	element.querySelector('.element__image').addEventListener('click', (evt) => {
-			evt.preventDefault();
-			showPopupImage(evt.target.alt, evt.target.src);
+	element.querySelector('.element__image').addEventListener('click', () => {
+			openPopup(popupImageActive, 'popup-image_opened');
 		}
 	);
 
 	elements.prepend(element);
 }
 
-editButton.addEventListener('click', () => {
-	const items = [
-				'Редактировать профиль',
-				'name',
-				'Название',
-				profileUserName.textContent,
-				'job',
-				'Ссылка на картинку',
-				profileUserJob.textContent,
-				'editButton'
-			];
-	showPopup(items);
+editButton.addEventListener('click', () => showPopupEdit());
+addButton.addEventListener('click', () => openPopup(popupCardActive, 'popup-add-card_opened'));
+closeButtonProfile.addEventListener('click', () => closePopup(popupProfileActive, 'popup-edit-profile_opened')); 
 
+initialCards.forEach(function (item) {
+	addCard(item.name, item.link);
 });
-
-addButton.addEventListener('click', () => {
-		const items = [
-				'Новое место',
-				'name',
-				'Название',
-				null,
-				'link',
-				'Ссылка на картинку',
-				null,
-				'addButton'
-			];
-		showPopup(items);
-
-	}
-);
-
-for (let i = 0; i < 6; i++) {
-	addCard(initialCards[i].name, initialCards[i].link);
-}

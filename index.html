@@ -26,10 +26,39 @@
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
-    <div class="popup"></div>
-    <div class="popup-image"></div>
-  </div>
-  <template id="popup">
+    <div class="popup-edit-profile">
+      <div class="popup-edit-profile__container">
+        <button class="popup-edit-profile__button-close" type="button"></button>
+        <h3 class="popup-edit-profile__title">Редактировать профиль</h3>
+        <form class="popup-edit-profile__form" name="form" action="#" method="post">
+          <input class="popup-edit-profile__input" type="text" id="name" name="user-name" value="">
+          <input class="popup-edit-profile__input" type="text" id="job" name="user-job" value="">
+          <button class="popup-edit-profile__button" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup-add-card">
+      <div class="popup-add-card__container">
+        <button class="popup-add-card__button-close" type="button"></button>
+        <h3 class="popup-add-card__title"></h3>
+        <form class="popup-add-card__form" name="form" action="#" method="post">
+          <input class="popup-add-card__input" type="text" id="title" name="card-title" value="">
+          <input class="popup-add-card__input" type="text" id="link" name="card-link" value="">
+          <button class="popup-add-card__button" type="submit"></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup-image">
+      <div class="popup-image__container">
+        <button class="popup-image__button-close" type="button"></button>
+        <img class="popup-image__image" src="#" alt="">
+        <h3 class="popup-image__title"></h3>
+      </div>
+    </div>
+
+<!--   <template id="popup">
     <div class="popup__container">
       <button class="popup__button-close" type="button"></button>
       <h3 class="popup__title"></h3>
@@ -46,7 +75,8 @@
       <img class="popup-image__image" src="#" alt="">
       <h3 class="popup-image__title"></h3>
     </div>
-  </template>
+  </template> -->
+  </div>
   <template id="card">
     <article class="element">
       <img class="element__image" alt="">

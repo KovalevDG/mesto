@@ -1,4 +1,4 @@
-.popup__button {
+.popup-add-card__button {
 	padding: 0;
 	width: 358px;
 	height: 50px;
@@ -11,13 +11,13 @@
 	border: 0;
 }
 
-.popup__button:hover {
+.popup-add-card__button:hover {
 	background-color: rgba(0, 0, 0, 0.8);
 	cursor: pointer;
 }
 
 @media all and (max-width: 597px) {
-	.popup__button {
+	.popup-add-card__button {
 		width: 238px;
 		height: 46px;
 		font-size: 14px;

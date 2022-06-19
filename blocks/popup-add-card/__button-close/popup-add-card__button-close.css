@@ -1,4 +1,4 @@
-.popup__button-close {
+.popup-add-card__button-close {
 	width: 32px;
 	height: 32px;
 	position: absolute;
@@ -11,13 +11,13 @@
 	z-index: 1;
 }
 
-.popup__button-close:hover {
+.popup-add-card__button-close:hover {
 	opacity: .8;
 	cursor: pointer;
 }
 
 @media all and (max-width: 597px) {
-	.popup__button-close {
+	.popup-add-card__button-close {
 		width: 20px;
 		height: 20px;
 		top: -36px;

@@ -1,4 +1,4 @@
-.popup__input {
+.popup-add-card__input {
 	width: 358px;
 	height: 27px;
 	font-weight: 400;
@@ -12,16 +12,16 @@
 	outline: 0;
 }
 
-.popup__input:nth-child(odd) {
+.popup-add-card__input:nth-child(odd) {
 	margin-bottom: 30px;
 }
 
 @media all and (max-width: 597px) {
-	.popup__input {
+	.popup-add-card__input {
 		max-width: 238px;
 		margin-bottom: 45px;	
 	}
-	.popup__input:nth-child(odd) {
+	.popup-add-card__input:nth-child(odd) {
 		margin-bottom: 30px;
 	}
 }

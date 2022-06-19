@@ -1,0 +1,8 @@
+.popup-edit-profile_opened {
+	/*display: flex;*/
+/*	align-items: center;
+	align-content: center;
+	justify-content: center;*/
+	visibility: visible;
+	opacity: 1;
+}
