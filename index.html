@@ -31,8 +31,8 @@
         <button class="popup-edit-profile__button-close" type="button"></button>
         <h3 class="popup-edit-profile__title">Редактировать профиль</h3>
         <form class="popup-edit-profile__form" name="form" action="#" method="post">
-          <input class="popup-edit-profile__input" type="text" id="name" name="user-name" value="">
-          <input class="popup-edit-profile__input" type="text" id="job" name="user-job" value="">
+          <input class="popup-edit-profile__input" type="text" id="name" name="user-name" value="" required>
+          <input class="popup-edit-profile__input" type="text" id="job" name="user-job" value="" required>
           <button class="popup-edit-profile__button" type="submit">Сохранить</button>
         </form>
       </div>
@@ -43,8 +43,8 @@
         <button class="popup-add-card__button-close" type="button"></button>
         <h3 class="popup-add-card__title">Новое место</h3>
         <form class="popup-add-card__form" name="form" action="#" method="post">
-          <input class="popup-add-card__input" type="text" id="title" name="card-title" placeholder="Название">
-          <input class="popup-add-card__input" type="text" id="link" name="card-link" placeholder="Ссылка на картинку">
+          <input class="popup-add-card__input" type="text" id="title" name="card-title" placeholder="Название" required>
+          <input class="popup-add-card__input" type="text" id="link" name="card-link" placeholder="Ссылка на картинку" required>
           <button class="popup-add-card__button" type="submit">Создать</button>
         </form>
       </div>
