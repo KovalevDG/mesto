@@ -67,7 +67,7 @@ function showPopupAddCard() {
 function submitPopupAddCard (evt) {
 	evt.preventDefault();
 	addCard(elements, createCard(titleInput.value, linkInput.value));
-	closePopup(popupCardActive, 'popup-add-card_opened');
+	closePopup(popupCardActive);
 }
 
 function showPopupImage () {
@@ -79,7 +79,7 @@ function openPopup (popup) {
 }
 
 function closePopup (popup) {
-	popup.classList.toggle('popup_opened');
+	popup.classList.remove('popup_opened');
 }
 
 function createCard (name, link) {
