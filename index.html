@@ -30,9 +30,11 @@
       <div class="popup-edit-profile__container">
         <button class="popup-edit-profile__button-close" type="button"></button>
         <h3 class="popup-edit-profile__title">Редактировать профиль</h3>
-        <form class="popup-edit-profile__form" name="form" action="#" method="post">
-          <input class="popup-edit-profile__input" type="text" id="name" name="user-name" value="" required>
-          <input class="popup-edit-profile__input" type="text" id="job" name="user-job" value="" required>
+        <form class="popup-edit-profile__form" name="form" action="#" method="post" novalidate>
+          <input class="popup-edit-profile__input" type="text" id="name" name="user-name" value="" minlength="2" maxlength="40" placeholder="Имя" required>
+          <span class="popup-edit-profile__message-error" id="name-error"></span>
+          <input class="popup-edit-profile__input" type="text" id="job" name="user-job" value="" minlength="2" maxlength="200" placeholder="" required>
+          <span class="popup-edit-profile__message-error" id="job-error"></span>
           <button class="popup-edit-profile__button" type="submit">Сохранить</button>
         </form>
       </div>
@@ -42,9 +44,11 @@
       <div class="popup-add-card__container">
         <button class="popup-add-card__button-close" type="button"></button>
         <h3 class="popup-add-card__title">Новое место</h3>
-        <form class="popup-add-card__form" name="form" action="#" method="post">
-          <input class="popup-add-card__input" type="text" id="title" name="card-title" placeholder="Название" required>
-          <input class="popup-add-card__input" type="text" id="link" name="card-link" placeholder="Ссылка на картинку" required>
+        <form class="popup-add-card__form" name="form" action="#" method="post" novalidate>
+          <input class="popup-add-card__input" type="text" id="title" name="card-title" placeholder="Название" minlength="2" maxlength="30" required>
+          <span class="popup-add-card__message-error" id="title-error"></span>
+          <input class="popup-add-card__input" type="text" id="link" name="card-link" placeholder="Ссылка на картинку" type="url" required>
+          <span class="popup-add-card__message-error" id="link-error">test</span>
           <button class="popup-add-card__button" type="submit">Создать</button>
         </form>
       </div>
@@ -68,6 +72,7 @@
       </div>
     </article>
   </template>
+  <script src="./scripts/validate.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
