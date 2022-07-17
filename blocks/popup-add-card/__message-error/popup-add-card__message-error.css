@@ -1,3 +1,9 @@
 .popup-add-card__message-error {
-   color: red;
+   max-width: 358px;
+   color: #FF0000;
+   font-size: 12px;
+   line-height: 15px;
+   white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

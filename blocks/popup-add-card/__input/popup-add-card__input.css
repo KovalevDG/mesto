@@ -7,13 +7,14 @@
 	border: none;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 	padding: 0 0 13px 0;
-	margin-bottom: 48px;
+	margin-top: 13px;
 	box-sizing: border-box;
 	outline: 0;
 }
 
 .popup-add-card__input:nth-child(odd) {
-	margin-bottom: 30px;
+	margin-top: 0;
+	margin-bottom: 5px;
 }
 
 @media all and (max-width: 597px) {
