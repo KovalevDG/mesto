@@ -1,6 +1,6 @@
 const popupProfileActive = document.querySelector('.popup-edit-profile');
 const closeButtonProfile = popupProfileActive.querySelector('.popup-edit-profile__button-close');
-const formElementProfile = popupProfileActive.querySelector('.popup-edit-profile__form'); 
+const formElementProfile = document.forms['form-edit-profile']; 
 const editButton = document.querySelector('.profile__edit-button');
 const nameInput = document.querySelector('[name=user-name]');
 const jobInput = document.querySelector('[name=user-job]');
@@ -11,7 +11,7 @@ const addButton = document.querySelector('.profile__add-button');
 const listElement = document.querySelector('#card');
 const titleInput = document.querySelector('[name=card-title]');
 const linkInput = document.querySelector('[name=card-link]');
-const formElementAddCard = document.querySelector('.popup-add-card__form');
+const formElementAddCard = document.forms['form-add-card'];
 const popupCardActive = document.querySelector('.popup-add-card');
 const closeButtonAddCard = document.querySelector('.popup-add-card__button-close')
 
@@ -122,3 +122,12 @@ closeButtonImage.addEventListener('click', () => closePopup(popupImageActive));
 initialCards.forEach(function (item) {
 	addCard(elements, createCard(item.name, item.link));
 });
+
+enableValidation({
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit-button',
+  inactiveButtonClass: 'form__submit-button_disabled',
+  inputErrorClass: 'form__input_type-error',
+  errorClass: 'form__input-error_active',
+}); 
