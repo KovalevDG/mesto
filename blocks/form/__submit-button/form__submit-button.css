@@ -11,9 +11,16 @@
 	border: 0;
 }
 
-.form__submit-botton:hover {
+.form__submit-button:hover {
 	background-color: rgba(0, 0, 0, 0.8);
 	cursor: pointer;
+}
+
+.form__submit-button:disabled {
+	color: #C4C4C4;
+	border: 1px solid #C4C4C4;
+	border-radius: 2px;
+	background-color: rgba(0, 0, 0, 0);
 }
 
 @media all and (max-width: 597px) {
