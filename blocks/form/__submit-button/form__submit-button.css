@@ -24,11 +24,10 @@
 }
 
 @media all and (max-width: 597px) {
-	.form__submit-botton {
+	.form__submit-button {
 		width: 238px;
 		height: 46px;
 		font-size: 14px;
 		line-height: 17px;
 	}
-}
 }

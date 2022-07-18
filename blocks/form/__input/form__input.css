@@ -7,22 +7,12 @@
 	border: none;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 	padding: 0 0 13px 0;
-	margin-bottom: 48px;
 	box-sizing: border-box;
 	outline: 0;
 }
 
-.form__input:nth-child(odd) {
-	margin-bottom: 30px;
-}
-
 @media all and (max-width: 597px) {
 	.form__input {
-		max-width: 238px;
-		margin-bottom: 45px;	
+		width: 238px;
 	}
-	.form__input:nth-child(odd) {
-		margin-bottom: 30px;
-	}
-}
 }
