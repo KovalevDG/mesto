@@ -1,3 +1,4 @@
+const popupOverlayAddCard = document.querySelector('.popup-add-card');
 const popupProfileActive = document.querySelector('.popup-edit-profile');
 const closeButtonProfile = popupProfileActive.querySelector('.popup-edit-profile__button-close');
 const formElementProfile = document.forms['form-edit-profile']; 
@@ -7,6 +8,7 @@ const jobInput = document.querySelector('[name=user-job]');
 const profileUserName = document.querySelector('.profile__user-name');
 const profileUserJob = document.querySelector('.profile__user-job');
 
+const popupOverlayProfile = document.querySelector('.popup-edit-profile');
 const addButton = document.querySelector('.profile__add-button');
 const listElement = document.querySelector('#card');
 const titleInput = document.querySelector('[name=card-title]');
@@ -114,25 +116,38 @@ addButton.addEventListener('click', () => showPopupAddCard());
 formElementProfile.addEventListener('submit', submitPopupProfile);
 formElementAddCard.addEventListener('submit', submitPopupAddCard);
 
-
 closeButtonProfile.addEventListener('click', () => closePopup(popupProfileActive));
 document.addEventListener('keydown', (k) => {
 	if (k.code === 'Escape') { 
 		closePopup(popupProfileActive);
 	} 
 });
-
+popupOverlayProfile.addEventListener('click', (evt) => {
+	if (evt.target === popupOverlayProfile) {
+		closePopup(popupProfileActive);
+	}
+});
 closeButtonAddCard.addEventListener('click', () => closePopup(popupCardActive));
 document.addEventListener('keydown', (k) => {
 	if (k.code === 'Escape') { 
 		closePopup(popupCardActive);
 	} 
 });
+popupOverlayAddCard.addEventListener('click', (evt) => {
+	if (evt.target === popupOverlayAddCard) {
+		closePopup(popupCardActive);
+	}
+});
 closeButtonImage.addEventListener('click', () => closePopup(popupImageActive));
 document.addEventListener('keydown', (k) => {
 	if (k.code === 'Escape') { 
 		closePopup(popupImageActive);
 	} 
+});
+popupImageActive.addEventListener('click', (evt) => {
+	if (evt.target === popupImageActive) {
+		closePopup(popupImageActive);
+	}
 });
 
 initialCards.forEach(function (item) {
