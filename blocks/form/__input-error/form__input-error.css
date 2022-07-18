@@ -1,0 +1,12 @@
+.form__input-error {
+   display: block;
+   height: 12px;
+   padding-top: 5px;
+   padding-bottom: 13px;
+   color: #FF0000;
+   font-size: 12px;
+   line-height: 15px;
+   white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
