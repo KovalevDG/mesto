@@ -7,22 +7,10 @@
 	border: none;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 	padding: 0 0 13px 0;
-<<<<<<< HEAD:blocks/popup-add-card/__input/popup-add-card__input.css
-	margin-top: 13px;
-=======
->>>>>>> develop:blocks/form/__input/form__input.css
 	box-sizing: border-box;
 	outline: 0;
 }
 
-<<<<<<< HEAD:blocks/popup-add-card/__input/popup-add-card__input.css
-.popup-add-card__input:nth-child(odd) {
-	margin-top: 0;
-	margin-bottom: 5px;
-}
-
-=======
->>>>>>> develop:blocks/form/__input/form__input.css
 @media all and (max-width: 597px) {
 	.form__input {
 		width: 238px;
