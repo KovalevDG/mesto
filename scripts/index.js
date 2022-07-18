@@ -116,8 +116,24 @@ formElementAddCard.addEventListener('submit', submitPopupAddCard);
 
 
 closeButtonProfile.addEventListener('click', () => closePopup(popupProfileActive));
+document.addEventListener('keydown', (k) => {
+	if (k.code === 'Escape') { 
+		closePopup(popupProfileActive);
+	} 
+});
+
 closeButtonAddCard.addEventListener('click', () => closePopup(popupCardActive));
+document.addEventListener('keydown', (k) => {
+	if (k.code === 'Escape') { 
+		closePopup(popupCardActive);
+	} 
+});
 closeButtonImage.addEventListener('click', () => closePopup(popupImageActive));
+document.addEventListener('keydown', (k) => {
+	if (k.code === 'Escape') { 
+		closePopup(popupImageActive);
+	} 
+});
 
 initialCards.forEach(function (item) {
 	addCard(elements, createCard(item.name, item.link));
@@ -127,7 +143,6 @@ enableValidation({
   formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__submit-button',
-  inactiveButtonClass: 'form__submit-button_disabled',
   inputErrorClass: 'form__input_type-error',
   errorClass: 'form__input-error_active',
 }); 

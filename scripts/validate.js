@@ -3,7 +3,6 @@ function isInputValid(inputList) {
 }
 
 function toggleButtonState(buttonElement, inputList) {
-  console.log(buttonElement);
   if (isInputValid(inputList)) {
     buttonElement.disabled = true;
   } else {
@@ -30,7 +29,7 @@ function showInputError (formElement, inputElement, errorMessage, conf) {
 function hideInputError (formElement, inputElement, conf) {
   const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
 
-  errorElement.classList.remove(conf.inputErrorClass);
+  inputElement.classList.remove(conf.inputErrorClass);
   errorElement.classList.remove(conf.errorClass);
   errorElement.textContent = '';
 }
@@ -38,7 +37,7 @@ function hideInputError (formElement, inputElement, conf) {
 function setEventListeners (formElement, conf) {
   const inputList = Array.from(formElement.querySelectorAll(conf.inputSelector));
 
-  const buttonElement = formElement.querySelector('.form__submit-button');
+  const buttonElement = formElement.querySelector(conf.submitButtonSelector);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
@@ -46,13 +45,13 @@ function setEventListeners (formElement, conf) {
       toggleButtonState(buttonElement, inputList, conf);
     });
   });
+  toggleButtonState(buttonElement, inputList, conf);
 }
 
 function enableValidation(conf) {
   const formList = Array.from(document.querySelectorAll(conf.formSelector));
 
   formList.forEach((formElement) => {
-    console.log(formElement);
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
