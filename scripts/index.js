@@ -1,3 +1,4 @@
+const popups = document.querySelectorAll('.popup');
 const popupOverlayProfile = document.querySelector('.popup-edit-profile');
 const popupProfileActive = document.querySelector('.popup-edit-profile');
 const closeButtonProfile = popupProfileActive.querySelector('.popup-edit-profile__button-close');
@@ -78,19 +79,27 @@ function showPopupImage() {
 }
 
 function openPopup(popup) {
-    const buttonElement = popup.querySelector('.popup__submit-button');
-    const inputList = Array.from(popup.querySelectorAll('.popup__input'));
-
     popup.classList.add('popup_opened');
+    popupAddEventListener();
     document.addEventListener('keydown', closeByEscape);
-    if (buttonElement) {
-        toggleButtonState(buttonElement, inputList);
-    }
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', closeByEscape);
+}
+
+function popupAddEventListener() {
+    popups.forEach((popup) => {
+        popup.addEventListener('mousedown', (evt) => {
+            if (evt.target.classList.contains('popup_opened')) {
+                closePopup(popup);
+            }
+            if (evt.target.classList.contains('popup__button-close')) {
+                closePopup(popup);
+            }
+        })
+    });
 }
 
 
@@ -128,31 +137,15 @@ function addCard(container, cardElement) {
 }
 
 editButton.addEventListener('click', () => showPopupEdit());
-addButton.addEventListener('click', () => showPopupAddCard());
+
+addButton.addEventListener('click', () => {
+    const buttonElement = formElementAddCard.querySelector('.popup__submit-button');
+    const inputList = Array.from(formElementAddCard.querySelectorAll('.popup__input'));
+    toggleButtonState(buttonElement, inputList);
+    showPopupAddCard();
+});
 formElementProfile.addEventListener('submit', submitPopupProfile);
 formElementAddCard.addEventListener('submit', submitPopupAddCard);
-
-closeButtonProfile.addEventListener('mousedown', () => closePopup(popupProfileActive));
-
-popupOverlayProfile.addEventListener('click', (evt) => {
-	if (evt.target === popupOverlayProfile) {
-		closePopup(popupProfileActive);
-	}
-});
-closeButtonAddCard.addEventListener('mousedown', () => closePopup(popupCardActive));
-
-popupOverlayAddCard.addEventListener('click', (evt) => {
-	if (evt.target === popupOverlayAddCard) {
-		closePopup(popupCardActive);
-	}
-});
-closeButtonImage.addEventListener('mousedown', () => closePopup(popupImageActive));
-
-popupImageActive.addEventListener('click', (evt) => {
-	if (evt.target === popupImageActive) {
-		closePopup(popupImageActive);
-	}
-});
 
 initialCards.forEach(function (item) {
 	addCard(elements, createCard(item.name, item.link));
