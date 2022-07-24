@@ -42,10 +42,10 @@ function setEventListeners (formElement, conf) {
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkInputValid(formElement, inputElement, conf);
-      toggleButtonState(buttonElement, inputList, conf);
+      toggleButtonState(buttonElement, inputList);
     });
   });
-  toggleButtonState(buttonElement, inputList, conf);
+  toggleButtonState(buttonElement, inputList);
 }
 
 function enableValidation(conf) {
