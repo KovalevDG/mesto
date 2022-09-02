@@ -11,10 +11,6 @@ class Card {
       this._element.querySelector('.element__image').src = this._link;
       this._element.querySelector('.element__image').alt = this._name;
       this._element.querySelector('.element__text').textContent = this._name;
-  
-      // this._element.querySelector('.element__like').addEventListener('click', (evt) => {
-      //     evt.target.classList.toggle('element_like-active');
-      // });
 
       return this._element;
    }

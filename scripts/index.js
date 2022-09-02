@@ -23,6 +23,16 @@ const cardTitle = popupImageActive.querySelector('.popup-image__title');
 const cardLink = popupImageActive.querySelector('.popup-image__image');
 const elements = document.querySelector('.elements');
 
+// const formValidator = new FormValidator({
+//     formSelector: '.form',
+//     inputSelector: '.form__input',
+//     submitButtonSelector: '.form__submit-button',
+//     inputErrorClass: 'form__input_type-error',
+//     errorClass: 'form__input-error_active',
+// });
+
+// formValidator.enableValidation();
+
 const initialCards = [{
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -108,26 +118,36 @@ function closeByEscape(evt) {
   }
 }
 
-editButton.addEventListener('click', () => showPopupEdit());
+editButton.addEventListener('click', () => { 
+    const formValidator = new FormValidator({
+        formSelector: formElementProfile,
+        inputSelector: '.form__input',
+        submitButtonSelector: '.form__submit-button',
+        inputErrorClass: 'form__input_type-error',
+        errorClass: 'form__input-error_active',
+    });
+
+    formValidator.enableValidation();
+    showPopupEdit();
+});
+
 addButton.addEventListener('click', () => {
-    const buttonElement = formElementAddCard.querySelector('.popup__submit-button');
-    const inputList = Array.from(formElementAddCard.querySelectorAll('.popup__input'));
-    toggleButtonState(buttonElement, inputList);
+    const formValidator = new FormValidator({
+        formSelector: formElementAddCard,
+        inputSelector: '.form__input',
+        submitButtonSelector: '.form__submit-button',
+        inputErrorClass: 'form__input_type-error',
+        errorClass: 'form__input-error_active',
+    });
+
+    formValidator.enableValidation();
     showPopupAddCard();
 });
 formElementProfile.addEventListener('submit', submitPopupProfile);
 formElementAddCard.addEventListener('submit', submitPopupAddCard);
 popupAddEventListener();
 
-initialCards.forEach(function (item) {
+initialCards.forEach(function(item) {
     const card = new Card(item.name, item.link);
     card.render(elements);
 });
-
-enableValidation({
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__submit-button',
-  inputErrorClass: 'form__input_type-error',
-  errorClass: 'form__input-error_active',
-}); 
