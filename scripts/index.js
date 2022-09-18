@@ -21,13 +21,24 @@ const cardTitle = popupImageActive.querySelector('.popup-image__title');
 const cardLink = popupImageActive.querySelector('.popup-image__image');
 const elements = document.querySelector('.elements');
 
-const formValidator = new FormValidator({
-    formSelector: '.form',
+const formValidatorEditProfile = new FormValidator({
+    formSelector: formElementProfile,
     inputSelector: '.form__input',
     submitButtonSelector: '.form__submit-button',
     inputErrorClass: 'form__input_type-error',
     errorClass: 'form__input-error_active',
 });
+
+const formValidatorAddCard = new FormValidator({
+    formSelector: formElementAddCard,
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__submit-button',
+    inputErrorClass: 'form__input_type-error',
+    errorClass: 'form__input-error_active',
+});
+
+formValidatorEditProfile.enableValidation();
+formValidatorAddCard.enableValidation();
 
 const initialCards = [{
         name: 'Архыз',
@@ -55,15 +66,15 @@ const initialCards = [{
     }
 ];
 
-function addCard(item) {
+function addCard(item, showPopupImage) {
     const card = new Card(item.name, item.link, showPopupImage);
-    elements.prepend(card.createCard());
+    return card.createCard();
 }
 
 function showPopupEdit() {
     nameInput.value = profileUserName.textContent;
     jobInput.value = profileUserJob.textContent;
-    formValidator.enableValidation(formElementProfile);
+    formValidatorEditProfile.toggleButtonState();
     openPopup(popupProfileActive);
 }
 
@@ -76,13 +87,14 @@ function submitPopupProfile(evt) {
 
 function showPopupAddCard() {
     formElementAddCard.reset();
-    formValidator.enableValidation(formElementAddCard);
+    formValidatorAddCard.toggleButtonState();
     openPopup(popupCardActive);
 }
 
 function submitPopupAddCard(evt) {
     evt.preventDefault();
-    addCard({ name: titleInput.value, link: linkInput.value,}, showPopupImage);
+    const newCard = addCard({ name: titleInput.value, link: linkInput.value, }, showPopupImage);
+    elements.prepend(newCard);
     closePopup(popupCardActive);
 }
 
@@ -131,5 +143,5 @@ formElementAddCard.addEventListener('submit', submitPopupAddCard);
 popupAddEventListener();
 
 initialCards.forEach(function (item) {
-    addCard(item);
+    elements.prepend(addCard(item, showPopupImage));
 });
