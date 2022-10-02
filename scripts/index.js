@@ -43,7 +43,7 @@ const formValidatorAddCard = new FormValidator({
 formValidatorEditProfile.enableValidation();
 formValidatorAddCard.enableValidation();
 
-const popupWithFormAddCard = new PopupWithForm('.popup-add-card', showPopupAddCard);
+const popupWithFormAddCard = new PopupWithForm('.popup-add-card', submitPopupAddCard);
 const popupWithFormEditProfile = new PopupWithForm('.popup-edit-profile', submitPopupProfile);
 
 const userInfo = new UserInfo({
@@ -90,6 +90,7 @@ function showPopupEdit() {
     jobInput.value = profileUserInfo.userJob.textContent;
     formValidatorEditProfile.toggleButtonState();
     popupWithFormEditProfile.open();
+    popupWithFormEditProfile.setEventListeners()
 }
 
 function submitPopupProfile(evt) {
@@ -100,9 +101,10 @@ function submitPopupProfile(evt) {
 }
 
 function showPopupAddCard() {
-    const popupWithForm = new PopupWithForm('.popup-add-card', submitPopupAddCard);
     formValidatorAddCard.toggleButtonState();
-    popupWithForm.open();
+    console.log(popupWithFormAddCard);
+    popupWithFormAddCard.open();
+    popupWithFormAddCard.setEventListeners();
 }
 
 function submitPopupAddCard(evt) {
@@ -125,9 +127,6 @@ buttonEdit.addEventListener('click', () => {
 addButton.addEventListener('click', () => {
     showPopupAddCard();
 });
-// formElementProfile.addEventListener('submit', submitPopupProfile);
-formElementAddCard.addEventListener('submit', submitPopupAddCard);
-popupWithFormEditProfile.setEventListeners();
 
 initialCards.forEach(function (item) {
     elements.prepend(addCard(item, showPopupImage));
