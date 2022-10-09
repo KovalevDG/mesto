@@ -1,12 +1,13 @@
 export default class Card {
    static _template = document.querySelector('#card').content;
-   constructor(data, showPopupImage) {
+   constructor(data, handleCardClick) {
       this._data = data;
-      this._showPopupImage = showPopupImage;
+      this._handleCardClick = handleCardClick;
+      console.log(this._data)
    }
 
    _showImage = () => {
-      this._showPopupImage(this._data[0], this._data[1]);
+      this._handleCardClick(this._data[0], this._data[1]);
    }
 
    _putLike = (evt) => {
@@ -25,10 +26,10 @@ export default class Card {
 
    createCard = () => {
       this._element = Card._template.cloneNode(true).children[0];
-      this._element.querySelector('.element__text').textContent = this._name;
+      this._element.querySelector('.element__text').textContent = this._data.name;
       this._elementImage = this._element.querySelector('.element__image');
-      this._elementImage.src = this._link;
-      this._elementImage.alt = this._name;
+      this._elementImage.src = this._data.link;
+      this._elementImage.alt = this._data.name;
       this._setEventListeners(this._element);
       return this._element;
    }

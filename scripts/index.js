@@ -1,4 +1,5 @@
 import Card from "./Card.js";
+import Section from "./Section.js";
 import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImage from "./PopupWithImage.js";
 import FormValidator from "./FormValidator.js";
@@ -89,21 +90,26 @@ const initialCards = [{
     }
 ];
 
-const section = new Selection({
-    items: initialCards,
-    render: addCard,
-}, '.elements');
+const section = new Section({
+            items: initialCards,
+            render: addCard,
+        }, '.elements');
 
-section.renderElements();
+section.render();
 
 function addCard(data) {
-    const card = new Card(data, () => {
-        const popupWithImage = new PopupWithImage(data.name, data.link, '.popup-image');
-        popupWithImage.open();
-        popupWithImage.setEventListeners();
-    });
+    console.log(data);
+    const card = new Card(data, handleCardClick);
     section.addItem(card.createCard());
 }
+
+function handleCardClick(data) {
+    const popupWithImage = new PopupWithImage(data.name, data.link, '.popup-image');
+    popupWithImage.open();
+    popupWithImage.setEventListeners();
+}
+
+// section.addItem();
 
 function showPopupEdit() {
     const profileUserInfo = userInfo.getUserInfo();
@@ -131,11 +137,11 @@ function showPopupAddCard() {
 //     popupWithFormAddCard.close();
 // }
 
-function showPopupImage(name, link) {
-    const popupWithImage = new PopupWithImage(name, link, '.popup-image');
-    popupWithImage.open();
-    popupWithImage.setEventListeners();
-}
+// function showPopupImage(name, link) {
+//     const popupWithImage = new PopupWithImage(name, link, '.popup-image');
+//     popupWithImage.open();
+//     popupWithImage.setEventListeners();
+// }
 
 buttonEdit.addEventListener('click', () => { 
     showPopupEdit();
@@ -144,11 +150,3 @@ buttonEdit.addEventListener('click', () => {
 addButton.addEventListener('click', () => {
     showPopupAddCard();
 });
-
-render = () => {
-
-}
-
-// initialCards.forEach(function (item) {
-//     elements.prepend(addCard(item, showPopupImage));
-// });
