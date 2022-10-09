@@ -1,13 +1,12 @@
 export default class Card {
    static _template = document.querySelector('#card').content;
-   constructor(name, link, showPopupImage) {
-      this._name = name;
-      this._link = link;
+   constructor(data, showPopupImage) {
+      this._data = data;
       this._showPopupImage = showPopupImage;
    }
 
    _showImage = () => {
-      this._showPopupImage(this._name, this._link);
+      this._showPopupImage(this._data[0], this._data[1]);
    }
 
    _putLike = (evt) => {

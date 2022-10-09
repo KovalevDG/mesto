@@ -1,7 +1,7 @@
 import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
 import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImage from "./PopupWithImage.js";
+import FormValidator from "./FormValidator.js";
 import UserInfo from "./UserInfo.js";
 
 const popups = document.querySelectorAll('.popup');
@@ -24,6 +24,21 @@ const cardTitle = popupImageActive.querySelector('.popup-image__title');
 const cardLink = popupImageActive.querySelector('.popup-image__image');
 const elements = document.querySelector('.elements');
 
+const popupWithFormAddCard = new PopupWithForm('.popup-add-card', () => {
+        const newCard = addCard({ name: titleInput.value, link: linkInput.value, }, showPopupImage);
+        elements.prepend(newCard);
+        popupWithFormAddCard.close();
+});
+
+const popupWithFormEditProfile = new PopupWithForm('.popup-edit-profile', () => {
+    evt.preventDefault();
+    userInfo.setUserInfo(nameInput.value, jobInput.value);
+    popupWithFormEditProfile.close();
+});
+
+popupWithFormEditProfile.setEventListeners();
+popupWithFormAddCard.setEventListeners();
+
 const formValidatorEditProfile = new FormValidator({
     formSelector: formElementProfile,
     inputSelector: '.form__input',
@@ -43,15 +58,10 @@ const formValidatorAddCard = new FormValidator({
 formValidatorEditProfile.enableValidation();
 formValidatorAddCard.enableValidation();
 
-const popupWithFormAddCard = new PopupWithForm('.popup-add-card', submitPopupAddCard);
-const popupWithFormEditProfile = new PopupWithForm('.popup-edit-profile', submitPopupProfile);
-
 const userInfo = new UserInfo({
     userName: '.profile__user-name',
     userJob: '.profile__user-job',
 });
-
-// const profileUserInfo = userInfo.getUserInfo();
 
 const initialCards = [{
         name: 'Архыз',
@@ -79,9 +89,20 @@ const initialCards = [{
     }
 ];
 
-function addCard(item, showPopupImage) {
-    const card = new Card(item.name, item.link, showPopupImage);
-    return card.createCard();
+const section = new Selection({
+    items: initialCards,
+    render: addCard,
+}, '.elements');
+
+section.renderElements();
+
+function addCard(data) {
+    const card = new Card(data, () => {
+        const popupWithImage = new PopupWithImage(data.name, data.link, '.popup-image');
+        popupWithImage.open();
+        popupWithImage.setEventListeners();
+    });
+    section.addItem(card.createCard());
 }
 
 function showPopupEdit() {
@@ -90,29 +111,25 @@ function showPopupEdit() {
     jobInput.value = profileUserInfo.userJob.textContent;
     formValidatorEditProfile.toggleButtonState();
     popupWithFormEditProfile.open();
-    popupWithFormEditProfile.setEventListeners()
 }
 
-function submitPopupProfile(evt) {
-    evt.preventDefault();
-    userInfo.setUserInfo(nameInput.value, jobInput.value);
-    popupWithFormEditProfile.close();
-    console.log(nameInput.value, jobInput.value);
-}
+// function submitPopupProfile(evt) {
+//     evt.preventDefault();
+//     userInfo.setUserInfo(nameInput.value, jobInput.value);
+//     popupWithFormEditProfile.close();
+// }
 
 function showPopupAddCard() {
     formValidatorAddCard.toggleButtonState();
-    console.log(popupWithFormAddCard);
     popupWithFormAddCard.open();
-    popupWithFormAddCard.setEventListeners();
 }
 
-function submitPopupAddCard(evt) {
-    evt.preventDefault();
-    const newCard = addCard({ name: titleInput.value, link: linkInput.value, }, showPopupImage);
-    elements.prepend(newCard);
-    popupWithFormAddCard.close();
-}
+// function submitPopupAddCard() {
+//     evt.preventDefault();
+//     const newCard = addCard({ name: titleInput.value, link: linkInput.value, }, showPopupImage);
+//     elements.prepend(newCard);
+//     popupWithFormAddCard.close();
+// }
 
 function showPopupImage(name, link) {
     const popupWithImage = new PopupWithImage(name, link, '.popup-image');
@@ -128,6 +145,10 @@ addButton.addEventListener('click', () => {
     showPopupAddCard();
 });
 
-initialCards.forEach(function (item) {
-    elements.prepend(addCard(item, showPopupImage));
-});
+render = () => {
+
+}
+
+// initialCards.forEach(function (item) {
+//     elements.prepend(addCard(item, showPopupImage));
+// });

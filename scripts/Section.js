@@ -1,3 +1,5 @@
+import Card from './Card.js';
+
 export default class Section {
    constructor({ items, renderer }, selector) {
       this._items = items;
@@ -5,11 +7,18 @@ export default class Section {
       this._selector = selector;
    }
 
-   renderItems = () => {
-      this._items.forEach((item) => this._renderer(item));
+//    initialCards.forEach(function (item) {
+//       elements.prepend(addCard(item, showPopupImage));
+//   });
+   
+   renderElements() {
+      this._items.forEach((item) => {
+         this._renderer(item)
+      });
    }
    
-   addItem = (element) => {
-      this._container.prepend(element);
-    }
+   addItem(element) {
+      this._elements = document.querySelector(selector);
+      this._elements.prepend(element);
+   }
 }
