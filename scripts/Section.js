@@ -11,7 +11,6 @@ export default class Section {
    }
    
    addItem = (card) => {
-      console.log(card);
       this._elements = document.querySelector(this._selector);
       this._elements.prepend(card);
    }

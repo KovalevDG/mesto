@@ -3,11 +3,10 @@ export default class Card {
    constructor(data, handleCardClick) {
       this._data = data;
       this._handleCardClick = handleCardClick;
-      console.log(this._data)
    }
 
    _showImage = () => {
-      this._handleCardClick(this._data[0], this._data[1]);
+      this._handleCardClick(this._data.name, this._data.link);
    }
 
    _putLike = (evt) => {
