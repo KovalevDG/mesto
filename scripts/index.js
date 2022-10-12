@@ -25,24 +25,22 @@ const cardTitle = popupImageActive.querySelector('.popup-image__title');
 const cardLink = popupImageActive.querySelector('.popup-image__image');
 const elements = document.querySelector('.elements');
 
-// const popupWithFormAddCard = new PopupWithForm('.popup-add-card', (evt) => {
-//     evt.preventDefault();
-//     const newCard = addCard({ name: titleInput.value, link: linkInput.value, });
-//     elements.prepend(newCard);
-//     popupWithFormAddCard.close();
-// });
-
-// const popupWithFormAddCard = new PopupWithForm('.popup-add-card', submitPopupAddCard);
 
 const popupWithFormAddCard = new PopupWithForm('.popup-add-card', submitPopupAddCard);
+
 popupWithFormAddCard.setEventListeners();
 
-
-const popupWithFormEditProfile = new PopupWithForm('.popup-edit-profile', (evt) => {
-    evt.preventDefault();
-    userInfo.setUserInfo(nameInput.value, jobInput.value);
-    popupWithFormEditProfile.close();
+const formValidatorAddCard = new FormValidator({
+    formSelector: formElementAddCard,
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__submit-button',
+    inputErrorClass: 'form__input_type-error',
+    errorClass: 'form__input-error_active',
 });
+
+formValidatorAddCard.enableValidation();
+
+const popupWithFormEditProfile = new PopupWithForm('.popup-edit-profile', submitPopupProfile);
 
 popupWithFormEditProfile.setEventListeners();
 
@@ -54,16 +52,7 @@ const formValidatorEditProfile = new FormValidator({
     errorClass: 'form__input-error_active',
 });
 
-const formValidatorAddCard = new FormValidator({
-    formSelector: formElementAddCard,
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__submit-button',
-    inputErrorClass: 'form__input_type-error',
-    errorClass: 'form__input-error_active',
-});
-
 formValidatorEditProfile.enableValidation();
-formValidatorAddCard.enableValidation();
 
 const userInfo = new UserInfo({
     userName: '.profile__user-name',
@@ -120,20 +109,14 @@ function submitPopupProfile(evt) {
     popupWithFormEditProfile.close();
 }
 
-function showPopupAddCard() {
-    formValidatorAddCard.toggleButtonState();
-    popupWithFormAddCard.open();
-}
-
 function submitPopupAddCard(evt) {
     evt.preventDefault();
-    console.log('submit click');
-    const card = addCard({ name: titleInput.value, link: linkInput.value, }, handleCardClick);
-    section.addItem(card.createCard());
+    addCard({ name: titleInput.value, link: linkInput.value, });
     popupWithFormAddCard.close();
 }
 
-buttonEdit.addEventListener('click', () => { 
+buttonEdit.addEventListener('click', () => {
+    popupWithFormEditProfile._getInputValues();
     popupWithFormEditProfile.open();
 });
 

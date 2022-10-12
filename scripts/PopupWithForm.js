@@ -9,16 +9,15 @@ export default class PopupWithForm extends Popup {
 
    _setSubmitPopup = (evt) => {
       evt.preventDefault();
-      console.log('submit click');
-      this._submitPopup();
+      this._submitPopup(evt);
    }
 
    setEventListeners = () => {
       super.setEventListeners;
       this._popupButtonClose = this._popup.querySelector('.popup__button-close');
       this._popupButtonClose.addEventListener('click', this.close);
-      this._submitButton = this._popup.querySelector('.popup__submit-button');
-      this._submitButton.addEventListener('submit', this._setSubmitPopup);
+      this._popupForm = this._popup.querySelector('.form');
+      this._popupForm.addEventListener('submit', this._setSubmitPopup);
    }
 
    _getInputValues = () => {
