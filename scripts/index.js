@@ -5,26 +5,15 @@ import PopupWithImage from "./PopupWithImage.js";
 import FormValidator from "./FormValidator.js";
 import UserInfo from "./UserInfo.js";
 
-const popups = document.querySelectorAll('.popup');
-const popupProfileActive = document.querySelector('.popup-edit-profile');
 const formElementProfile = document.forms['form-edit-profile']; 
 const buttonEdit = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const nameInput = document.querySelector('[name=user-name]');
 const jobInput = document.querySelector('[name=user-job]');
-const profileUserName = document.querySelector('.profile__user-name');
-const profileUserJob = document.querySelector('.profile__user-job');
 
 const titleInput = document.querySelector('[name=card-title]');
 const linkInput = document.querySelector('[name=card-link]');
 const formElementAddCard = document.forms['form-add-card'];
-const popupCardActive = document.querySelector('.popup-add-card');
-
-const popupImageActive = document.querySelector('.popup-image');
-const cardTitle = popupImageActive.querySelector('.popup-image__title');
-const cardLink = popupImageActive.querySelector('.popup-image__image');
-const elements = document.querySelector('.elements');
-
 
 const popupWithFormAddCard = new PopupWithForm('.popup-add-card', submitPopupAddCard);
 
@@ -116,6 +105,8 @@ function submitPopupAddCard(evt) {
 }
 
 buttonEdit.addEventListener('click', () => {
+    nameInput.value = userInfo.getUserInfo().userName;
+    jobInput.value = userInfo.getUserInfo().userJob;
     popupWithFormEditProfile._getInputValues();
     popupWithFormEditProfile.open();
 });
