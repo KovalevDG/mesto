@@ -1,6 +1,6 @@
 # Проект: Место
 
-* [Ссылка на проект](https://kovalevdg.github.io/mesto/src)
+* [Ссылка на проект](https://kovalevdg.github.io/mesto/src/index.html)
 
 ### Обзор
 
