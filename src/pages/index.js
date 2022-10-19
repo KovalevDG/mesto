@@ -1,11 +1,11 @@
-import {BUTTON_EDIT, BUTTON_ADD, NAME_INPUT, JOB_INPUT, INITIAL_CARDS} from "./constants.js";
-import '../pages/index.css';
-import Card from "./Card.js";
-import Section from "./Section.js";
-import PopupWithForm from "./PopupWithForm.js";
-import PopupWithImage from "./PopupWithImage.js";
-import FormValidator from "./FormValidator.js";
-import UserInfo from "./UserInfo.js";
+import {BUTTON_EDIT, BUTTON_ADD, NAME_INPUT, JOB_INPUT, INITIAL_CARDS} from "../components/constants.js";
+import './index.css';
+import Card from "../components/Card.js";
+import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import FormValidator from "../components/FormValidator.js";
+import UserInfo from "../components/UserInfo.js";
 
 const userInfo = new UserInfo({
     userName: '.profile__user-name',
@@ -84,10 +84,12 @@ function setEventListenersProfileEdit() {
     const profile = userInfo.getUserInfo();
     NAME_INPUT.value = profile.userName;
     JOB_INPUT.value = profile.userJob;
+    formValidatorEditProfile.toggleButtonState();
     popupWithFormEditProfile.open();
 }
 
 function setEventListenersAddCard() {
+    formValidatorAddCard.toggleButtonState();
     popupWithFormAddCard.open();
 }
 
