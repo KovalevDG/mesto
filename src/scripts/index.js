@@ -1,3 +1,4 @@
+import {BUTTON_EDIT, BUTTON_ADD, NAME_INPUT, JOB_INPUT, INITIAL_CARDS} from "./constants.js";
 import '../pages/index.css';
 import Card from "./Card.js";
 import Section from "./Section.js";
@@ -6,112 +7,90 @@ import PopupWithImage from "./PopupWithImage.js";
 import FormValidator from "./FormValidator.js";
 import UserInfo from "./UserInfo.js";
 
-const formElementProfile = document.forms['form-edit-profile']; 
-const buttonEdit = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button');
-const nameInput = document.querySelector('[name=user-name]');
-const jobInput = document.querySelector('[name=user-job]');
-
-const titleInput = document.querySelector('[name=card-title]');
-const linkInput = document.querySelector('[name=card-link]');
-const formElementAddCard = document.forms['form-add-card'];
-
-const popupWithFormAddCard = new PopupWithForm('.popup-add-card', submitPopupAddCard);
-
-popupWithFormAddCard.setEventListeners();
-
-const formValidatorAddCard = new FormValidator({
-    formSelector: formElementAddCard,
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__submit-button',
-    inputErrorClass: 'form__input_type-error',
-    errorClass: 'form__input-error_active',
-});
-
-formValidatorAddCard.enableValidation();
-
-const popupWithFormEditProfile = new PopupWithForm('.popup-edit-profile', submitPopupProfile);
-
-popupWithFormEditProfile.setEventListeners();
-
-const formValidatorEditProfile = new FormValidator({
-    formSelector: formElementProfile,
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__submit-button',
-    inputErrorClass: 'form__input_type-error',
-    errorClass: 'form__input-error_active',
-});
-
-formValidatorEditProfile.enableValidation();
-
 const userInfo = new UserInfo({
     userName: '.profile__user-name',
     userJob: '.profile__user-job',
 });
 
-const initialCards = [{
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
+const selectorsAddCard = {
+    formSelector: 'form-add-card',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__submit-button',
+    inputErrorClass: 'form__input_type-error',
+    errorClass: 'form__input-error_active',
+}
+
+const selectorsEditProfile = {
+    formSelector: 'form-edit-profile',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__submit-button',
+    inputErrorClass: 'form__input_type-error',
+    errorClass: 'form__input-error_active',
+};
+
+const popupWithImage = new PopupWithImage('.popup-image');
+
+const popupWithFormAddCard = new PopupWithForm('.popup-add-card', handleCardFormSubmit);
+
+popupWithFormAddCard.setEventListeners();
+
+const formValidatorAddCard = new FormValidator(selectorsAddCard);
+
+formValidatorAddCard.enableValidation();
+
+const popupWithFormEditProfile = new PopupWithForm('.popup-edit-profile', handleProfileFormSubmit);
+
+popupWithFormEditProfile.setEventListeners();
+
+const formValidatorEditProfile = new FormValidator(selectorsEditProfile);
+
+formValidatorEditProfile.enableValidation();
 
 const section = new Section({
-            items: initialCards,
-            render: addCard,
+            items: INITIAL_CARDS,
+            render: insertCard,
         }, '.elements');
 
 section.render();
 
-function addCard(data) {
-    const card = new Card(data, handleCardClick);
+function createCard(data, selector) {
+    const card = new Card(data, selector, handleCardClick);
+    return card;
+}
+
+function insertCard(data) {
+    const card = createCard(data, '#card');
     section.addItem(card.createCard());
 }
 
-function handleCardClick(name, link) {
-    const popupWithImage = new PopupWithImage(name, link, '.popup-image');
-    popupWithImage.open();
+function handleCardClick(data) {
+    popupWithImage.open(data);
     popupWithImage.setEventListeners();
 }
 
-function submitPopupProfile(evt) {
+function handleProfileFormSubmit(evt, data) {
     evt.preventDefault();
-    userInfo.setUserInfo(nameInput.value, jobInput.value);
+    userInfo.setUserInfo(data.name, data.job);
     popupWithFormEditProfile.close();
 }
 
-function submitPopupAddCard(evt) {
+function handleCardFormSubmit(evt, data) {
     evt.preventDefault();
-    addCard({ name: titleInput.value, link: linkInput.value, });
+    insertCard(data);
     popupWithFormAddCard.close();
 }
 
-buttonEdit.addEventListener('click', () => {
-    nameInput.value = userInfo.getUserInfo().userName;
-    jobInput.value = userInfo.getUserInfo().userJob;
-    popupWithFormEditProfile._getInputValues();
+function setEventListenersProfileEdit() {
+    const profile = userInfo.getUserInfo();
+    NAME_INPUT.value = profile.userName;
+    JOB_INPUT.value = profile.userJob;
     popupWithFormEditProfile.open();
-});
+}
 
-addButton.addEventListener('click', () => {
+function setEventListenersAddCard() {
     popupWithFormAddCard.open();
-});
+}
+
+BUTTON_EDIT.addEventListener('click', setEventListenersProfileEdit);
+
+BUTTON_ADD.addEventListener('click', setEventListenersAddCard);

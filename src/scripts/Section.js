@@ -1,17 +1,16 @@
-import Card from './Card.js';
-
 export default class Section {
    constructor(data, selector) {
-      this._data = data;
+      this._items = data.items;
+      this._render = data.render
       this._selector = selector;
+      this._container = document.querySelector(this._selector);
    }
 
    render = () => {
-      this._data.items.forEach((item) => this._data.render(item));
+      this._items.forEach((item) => this._render(item));
    }
    
-   addItem = (card) => {
-      this._elements = document.querySelector(this._selector);
-      this._elements.prepend(card);
+   addItem = (element) => {
+      this._container.prepend(element);
    }
 }
