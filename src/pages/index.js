@@ -1,4 +1,4 @@
-import {BUTTON_EDIT, BUTTON_ADD, NAME_INPUT, JOB_INPUT, INITIAL_CARDS} from "../components/constants.js";
+import {BUTTON_EDIT, BUTTON_ADD, NAME_INPUT, JOB_INPUT, INITIAL_CARDS} from "../utils/constants.js";
 import './index.css';
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
@@ -12,29 +12,23 @@ const userInfo = new UserInfo({
     userJob: '.profile__user-job',
 });
 
-const selectorsAddCard = {
-    formSelector: 'form-add-card',
+const configSelestors = {
+    formSelector: 'form',
     inputSelector: '.form__input',
     submitButtonSelector: '.form__submit-button',
     inputErrorClass: 'form__input_type-error',
     errorClass: 'form__input-error_active',
 }
 
-const selectorsEditProfile = {
-    formSelector: 'form-edit-profile',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__submit-button',
-    inputErrorClass: 'form__input_type-error',
-    errorClass: 'form__input-error_active',
-};
-
 const popupWithImage = new PopupWithImage('.popup-image');
+
+popupWithImage.setEventListeners();
 
 const popupWithFormAddCard = new PopupWithForm('.popup-add-card', handleCardFormSubmit);
 
 popupWithFormAddCard.setEventListeners();
 
-const formValidatorAddCard = new FormValidator(selectorsAddCard);
+const formValidatorAddCard = new FormValidator(configSelestors, 'form-add-card');
 
 formValidatorAddCard.enableValidation();
 
@@ -42,7 +36,7 @@ const popupWithFormEditProfile = new PopupWithForm('.popup-edit-profile', handle
 
 popupWithFormEditProfile.setEventListeners();
 
-const formValidatorEditProfile = new FormValidator(selectorsEditProfile);
+const formValidatorEditProfile = new FormValidator(configSelestors, 'form-edit-profile');
 
 formValidatorEditProfile.enableValidation();
 
@@ -51,7 +45,7 @@ const section = new Section({
             render: insertCard,
         }, '.elements');
 
-section.render();
+section.renderItems();
 
 function createCard(data, selector) {
     const card = new Card(data, selector, handleCardClick);
@@ -65,7 +59,6 @@ function insertCard(data) {
 
 function handleCardClick(data) {
     popupWithImage.open(data);
-    popupWithImage.setEventListeners();
 }
 
 function handleProfileFormSubmit(evt, data) {
@@ -80,7 +73,7 @@ function handleCardFormSubmit(evt, data) {
     popupWithFormAddCard.close();
 }
 
-function setEventListenersProfileEdit() {
+function openEditProfilePopup() {
     const profile = userInfo.getUserInfo();
     NAME_INPUT.value = profile.userName;
     JOB_INPUT.value = profile.userJob;
@@ -88,11 +81,11 @@ function setEventListenersProfileEdit() {
     popupWithFormEditProfile.open();
 }
 
-function setEventListenersAddCard() {
+function openAddCardPopup() {
     formValidatorAddCard.toggleButtonState();
     popupWithFormAddCard.open();
 }
 
-BUTTON_EDIT.addEventListener('click', setEventListenersProfileEdit);
+BUTTON_EDIT.addEventListener('click', openEditProfilePopup);
 
-BUTTON_ADD.addEventListener('click', setEventListenersAddCard);
+BUTTON_ADD.addEventListener('click', openAddCardPopup);

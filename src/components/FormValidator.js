@@ -1,6 +1,7 @@
 export default class FormValidator {
-   constructor(config) {
+   constructor(config, selector) {
       this._config = config;
+      this._selector = selector;
    }
    
    _hasInvalidInput = () => {
@@ -52,7 +53,7 @@ export default class FormValidator {
    }   
     
    enableValidation() {
-      this._formElement = document.forms[this._config.formSelector];
+      this._formElement = document.forms[this._selector];
       this._setEventListeners(this._formElement);
    }
 }
