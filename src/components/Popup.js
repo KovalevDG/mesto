@@ -4,7 +4,6 @@ export default class Popup {
       this._popup = document.querySelector(this._selector);
       this._formInputErrorMessage = this._popup.querySelectorAll('.form__input-error');
       this._formInput = this._popup.querySelectorAll('.form__input');
-      console.log(this._formInput);
    }
 
    open() {
@@ -19,7 +18,6 @@ export default class Popup {
          element.classList.remove('form__input-error_active');
       });
       this._formInput.forEach((element) => {
-         console.log(element);
          element.classList.remove('form__input_type-error');
       });
    }
