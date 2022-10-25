@@ -1,5 +1,6 @@
 import {BUTTON_EDIT, BUTTON_ADD, NAME_INPUT, JOB_INPUT, INITIAL_CARDS} from "../utils/constants.js";
 import './index.css';
+import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
@@ -7,10 +8,20 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
 
+const options = {
+    headers: {
+        authorization: '7c3683ec-8b7d-4bcf-ad22-d226ef2effb7'
+    }
+};
+
 const userInfo = new UserInfo({
     userName: '.profile__user-name',
     userJob: '.profile__user-job',
 });
+
+const api = new Api(options);
+
+console.log(api.setUserInfo('https://mesto.nomoreparties.co/v1/cohort-52/users/me'));
 
 const configSelestors = {
     formSelector: 'form',
