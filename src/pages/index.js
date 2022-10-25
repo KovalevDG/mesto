@@ -10,18 +10,18 @@ import UserInfo from "../components/UserInfo.js";
 
 const options = {
     headers: {
-        authorization: '7c3683ec-8b7d-4bcf-ad22-d226ef2effb7'
+        authorization: '7c3683ec-8b7d-4bcf-ad22-d226ef2effb7',
+        'Content-Type': 'application/json'
     }
 };
 
 const userInfo = new UserInfo({
     userName: '.profile__user-name',
     userJob: '.profile__user-job',
+    userAvatar: '.profile__avatar',
 });
 
 const api = new Api(options);
-
-console.log(api.setUserInfo('https://mesto.nomoreparties.co/v1/cohort-52/users/me'));
 
 const configSelestors = {
     formSelector: 'form',
@@ -52,11 +52,32 @@ const formValidatorEditProfile = new FormValidator(configSelestors, 'form-edit-p
 formValidatorEditProfile.enableValidation();
 
 const section = new Section({
-            items: INITIAL_CARDS,
+            items: [],
             render: insertCard,
         }, '.elements');
 
-section.renderItems();
+api.getInitialCards('https://mesto.nomoreparties.co/v1/cohort-52/cards')
+    .then((result) => {
+        section.items = result;
+        section.renderItems();
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+
+function setUserProfile() {
+    api.getUserInfo('https://mesto.nomoreparties.co/v1/cohort-52/users/me')
+        .then((result) => {
+            userInfo.setUsetAvatar(result.avatar);
+            userInfo.setUserInfo(result.name, result.about);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
+setUserProfile();
 
 function createCard(data, selector) {
     const card = new Card(data, selector, handleCardClick);

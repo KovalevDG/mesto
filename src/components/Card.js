@@ -27,10 +27,10 @@ export default class Card {
    createCard = () => {
       this._template = document.querySelector(this._selector).content;
       this._element = this._template.cloneNode(true).children[0];
-      this._element.querySelector('.element__text').textContent = this._data.title;
+      this._element.querySelector('.element__text').textContent = this._data.name;
       this._elementImage = this._element.querySelector('.element__image');
       this._elementImage.src = this._data.link;
-      this._elementImage.alt = this._data.title;
+      this._elementImage.alt = this._data.name;
       this._setEventListeners();
       return this._element;
    }
