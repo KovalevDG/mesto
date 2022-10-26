@@ -10,8 +10,7 @@ import UserInfo from "../components/UserInfo.js";
 
 const options = {
     headers: {
-        authorization: '7c3683ec-8b7d-4bcf-ad22-d226ef2effb7',
-        'Content-Type': 'application/json'
+        authorization: '7c3683ec-8b7d-4bcf-ad22-d226ef2effb7'
     }
 };
 
@@ -56,7 +55,7 @@ const section = new Section({
             render: insertCard,
         }, '.elements');
 
-api.getInitialCards('https://mesto.nomoreparties.co/v1/cohort-52/cards')
+api.getInitialCards()
     .then((result) => {
         section.items = result;
         section.renderItems();
@@ -67,15 +66,27 @@ api.getInitialCards('https://mesto.nomoreparties.co/v1/cohort-52/cards')
 
 
 function setUserProfile() {
-    api.getUserInfo('https://mesto.nomoreparties.co/v1/cohort-52/users/me')
+    api.getUserInfo()
         .then((result) => {
             userInfo.setUsetAvatar(result.avatar);
-            userInfo.setUserInfo(result.name, result.about);
+            userInfo.setUserInfo(result);
         })
         .catch((err) => {
             console.log(err);
         });
 }
+
+function editUserProfile(data) {
+    api.editUserInfo(data)
+        .then((res) => {
+            userInfo.setUserInfo(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
+// api.editUserInfo();
 
 setUserProfile();
 
@@ -95,7 +106,7 @@ function handleCardClick(data) {
 
 function handleProfileFormSubmit(evt, data) {
     evt.preventDefault();
-    userInfo.setUserInfo(data.name, data.job);
+    editUserProfile(data);
     popupWithFormEditProfile.close();
 }
 

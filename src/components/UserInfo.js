@@ -11,9 +11,9 @@ export default class UserInfo {
       this._userInfo.userJob = this._profileUserJob.textContent;
       return this._userInfo;
    }
-   setUserInfo(userName, userJob) {
-      this._profileUserName.textContent = userName;
-      this._profileUserJob.textContent = userJob;
+   setUserInfo(data) {
+      this._profileUserName.textContent = data.name;
+      this._profileUserJob.textContent = data.about;
    }
    setUsetAvatar(url) {
       this._profileUserAvatar.src = url;
