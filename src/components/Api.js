@@ -5,6 +5,25 @@ export default class Api {
       this._urlCards = 'https://mesto.nomoreparties.co/v1/cohort-52/cards';
    }
 
+   postCards(card) {
+      return fetch(this._urlCards, {
+         method: 'POST',
+         body: JSON.stringify(card),
+         headers: {
+            authorization: '7c3683ec-8b7d-4bcf-ad22-d226ef2effb7',
+            'Content-Type': 'application/json'
+         }
+      })
+         .then((res) => {
+            if(res.ok) {
+               return res.json();
+            }else{
+               return Promise.reject(`Ошибка: ${res.status}`);  
+            }
+         })
+         .catch((err) => console.log(err));
+   }
+
    editUserInfo(data) {
       return fetch(this._urlProfile, {
          method: 'PATCH',
@@ -14,14 +33,15 @@ export default class Api {
             'Content-Type': 'application/json'
          }
       })
-      .then((res) => {
-         if(res.ok) {
-            return res.json();
-         }else{
-            return Promise.reject(`Ошибка: ${res.status}`);  
-         }
-      })
-      .catch((err) => console.log(err));
+         .then((res) => {
+            if (res.ok) {
+               console.log(res);
+               return res.json();
+            }else{
+               return Promise.reject(`Ошибка: ${res.status}`);  
+            }
+         })
+         .catch((err) => console.log(err));
    }
 
    getUserInfo() {
@@ -34,12 +54,12 @@ export default class Api {
 
    _getData(url) {
       return fetch(url, this._options)
-      .then((res) => {
-         if(res.ok){
-            return res.json();
-         }else{
-            return Promise.reject(`Ошибка: ${res.status}`);
-         }
+         .then((res) => {
+            if(res.ok){
+               return res.json();
+            }else{
+               return Promise.reject(`Ошибка: ${res.status}`);
+            }
       });
    }
 }

@@ -67,9 +67,9 @@ api.getInitialCards()
 
 function setUserProfile() {
     api.getUserInfo()
-        .then((result) => {
-            userInfo.setUsetAvatar(result.avatar);
-            userInfo.setUserInfo(result);
+        .then((res) => {
+            userInfo.setUsetAvatar(res.avatar);
+            userInfo.setUserInfo(res);
         })
         .catch((err) => {
             console.log(err);
@@ -86,11 +86,20 @@ function editUserProfile(data) {
         });
 }
 
-// api.editUserInfo();
+function postCard(data) {
+    api.postCards(data)
+        .then((res) => {
+            insertCard(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
 
 setUserProfile();
 
 function createCard(data, selector) {
+    console.log(data);
     const card = new Card(data, selector, handleCardClick);
     return card;
 }
@@ -112,7 +121,7 @@ function handleProfileFormSubmit(evt, data) {
 
 function handleCardFormSubmit(evt, data) {
     evt.preventDefault();
-    insertCard(data);
+    postCard(data);
     popupWithFormAddCard.close();
 }
 

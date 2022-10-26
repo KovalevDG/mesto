@@ -1,3 +1,5 @@
+import { data } from "autoprefixer";
+
 export default class Card {
    constructor(data, selector, handleCardClick) {
       this._data = data;
@@ -27,6 +29,11 @@ export default class Card {
    createCard = () => {
       this._template = document.querySelector(this._selector).content;
       this._element = this._template.cloneNode(true).children[0];
+      if (this._data.owner.name == 'MyMy') {
+         this._element.querySelector('.element__delete').hidden = false;
+      } else {
+         this._element.querySelector('.element__delete').hidden = true;
+      }
       this._element.querySelector('.element__text').textContent = this._data.name;
       this._elementImage = this._element.querySelector('.element__image');
       this._elementImage.src = this._data.link;
