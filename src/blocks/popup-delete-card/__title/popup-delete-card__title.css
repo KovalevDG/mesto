@@ -1,0 +1,13 @@
+.popup-delete-card__title {
+	margin: 0;
+	font-weight: 900;
+	font-size: 24px;
+	line-height: 30px;
+}
+
+@media all and (max-width: 597px) {
+	.popup-delete-card__title {
+		font-size: 18px;
+		line-height: 22px;
+	}
+}

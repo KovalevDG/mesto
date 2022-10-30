@@ -1,10 +1,11 @@
 import { data } from "autoprefixer";
 
 export default class Card {
-   constructor(data, selector, handleCardClick) {
+   constructor(data, selector, handleCardClick, handleDeleteClick) {
       this._data = data;
       this._selector = selector;
       this._handleCardClick = handleCardClick;
+      this._handleDeleteClick = handleDeleteClick;
    }
 
    _handleClickImage = () => {
@@ -16,6 +17,11 @@ export default class Card {
    }
 
    _handleClickDeleteCard = () => {
+      this._handleDeleteClick(this._data, this._element);
+      // this._removeCard();
+   }
+
+   _removeCard = () => {
       this._element.remove();
       this._element = null;
    }

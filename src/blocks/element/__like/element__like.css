@@ -1,11 +1,11 @@
 .element__like {
-	padding-right: 23px;
-	background: url(../../../images/like.svg) 50% 50% rgba(0, 0, 0, 0) no-repeat;
-	background-position: center;
-	border: 0;
-}
-
-.element__like:hover {
-	opacity: .5;
-	cursor: pointer;
+	display: grid;
+	grid-template-areas: 
+	"icon"
+	"counter";
+	align-content: center;
+	align-items: center;
+	grid-column-gap: 3px;
+	min-height: 35px;
+	min-width: 22px;
 }

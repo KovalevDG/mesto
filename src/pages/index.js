@@ -1,4 +1,4 @@
-import {BUTTON_EDIT, BUTTON_ADD, NAME_INPUT, JOB_INPUT, INITIAL_CARDS} from "../utils/constants.js";
+import {BUTTON_EDIT, BUTTON_ADD, NAME_INPUT, JOB_INPUT} from "../utils/constants.js";
 import './index.css';
 import Api from "../components/Api.js";
 import Card from "../components/Card.js";
@@ -7,6 +7,9 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
+
+let cardInfo;
+let elementDeleted;
 
 const options = {
     headers: {
@@ -50,6 +53,10 @@ const formValidatorEditProfile = new FormValidator(configSelestors, 'form-edit-p
 
 formValidatorEditProfile.enableValidation();
 
+const popupWithFormDeleteCard = new PopupWithForm('.popup-delete-card', handleDeleteCardFormSubmit);
+
+popupWithFormDeleteCard.setEventListeners();
+
 const section = new Section({
             items: [],
             render: insertCard,
@@ -63,7 +70,6 @@ api.getInitialCards()
     .catch((err) => {
         console.log(err);
     });
-
 
 function setUserProfile() {
     api.getUserInfo()
@@ -99,8 +105,7 @@ function postCard(data) {
 setUserProfile();
 
 function createCard(data, selector) {
-    console.log(data);
-    const card = new Card(data, selector, handleCardClick);
+    const card = new Card(data, selector, handleCardClick, handleDeleteClick);
     return card;
 }
 
@@ -109,8 +114,24 @@ function insertCard(data) {
     section.addItem(card.createCard());
 }
 
+function deleteCard(data) {
+    api.deleteCard(data)
+    .then((res) => {
+        // insertCard(res);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+}
+
 function handleCardClick(data) {
     popupWithImage.open(data);
+}
+
+function handleDeleteClick(data, element) {
+    cardInfo = data;
+    elementDeleted = element;
+    popupWithFormDeleteCard.open();
 }
 
 function handleProfileFormSubmit(evt, data) {
@@ -123,6 +144,15 @@ function handleCardFormSubmit(evt, data) {
     evt.preventDefault();
     postCard(data);
     popupWithFormAddCard.close();
+}
+
+function handleDeleteCardFormSubmit(evt) {
+    console.log(cardInfo);
+    evt.preventDefault();
+    deleteCard(cardInfo);
+    elementDeleted.remove();
+    elementDeleted = null;
+    popupWithFormDeleteCard.close(); 
 }
 
 function openEditProfilePopup() {

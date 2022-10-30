@@ -44,6 +44,26 @@ export default class Api {
          .catch((err) => console.log(err));
    }
 
+   deleteCard(data) {
+      console.log(this._urlCards + '/' + data._id);
+      return fetch(this._urlCards + '/' + data._id, {
+         method: 'DELETE',
+         headers: {
+            authorization: '7c3683ec-8b7d-4bcf-ad22-d226ef2effb7',
+            'Content-Type': 'application/json'
+         }
+      })
+         .then((res) => {
+            if (res.ok) {
+               console.log(res);
+               return res.json();
+            }else{
+               return Promise.reject(`Ошибка: ${res.status}`);  
+            }
+         })
+         .catch((err) => console.log(err));
+   }
+
    getUserInfo() {
       return this._getData(this._urlProfile);
    }
