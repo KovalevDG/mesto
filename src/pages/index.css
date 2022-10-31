@@ -38,6 +38,11 @@
 @import url(../blocks/popup-edit-profile/__container/popup-edit-profile__container.css);
 @import url(../blocks/popup-edit-profile/__title/popup-edit-profile__title.css);
 
+@import url(../blocks/popup-edit-avatar/popup-edit-avatar.css);
+@import url(../blocks/popup-edit-avatar/__container/popup-edit-avatar__container.css);
+@import url(../blocks/popup-edit-avatar/__title/popup-edit-avatar__title.css);
+@import url(../blocks/popup-edit-avatar/__message-error/popup-edit-avatar__message-error.css);
+
 @import url(../blocks/popup-add-card/popup-add-card.css);
 @import url(../blocks/popup-add-card/__container/popup-add-card__container.css);
 @import url(../blocks/popup-add-card/__title/popup-add-card__title.css);

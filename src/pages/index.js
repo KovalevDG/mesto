@@ -1,4 +1,4 @@
-import {BUTTON_EDIT, BUTTON_ADD, NAME_INPUT, JOB_INPUT} from "../utils/constants.js";
+import {BUTTON_EDIT, BUTTON_EDIT_AVATAR, BUTTON_ADD, NAME_INPUT, JOB_INPUT} from "../utils/constants.js";
 import './index.css';
 import Api from "../components/Api.js";
 import Card from "../components/Card.js";
@@ -25,7 +25,7 @@ const userInfo = new UserInfo({
 
 const api = new Api(options);
 
-const configSelestors = {
+const configSelectors = {
     formSelector: 'form',
     inputSelector: '.form__input',
     submitButtonSelector: '.form__submit-button',
@@ -41,7 +41,7 @@ const popupWithFormAddCard = new PopupWithForm('.popup-add-card', handleCardForm
 
 popupWithFormAddCard.setEventListeners();
 
-const formValidatorAddCard = new FormValidator(configSelestors, 'form-add-card');
+const formValidatorAddCard = new FormValidator(configSelectors, 'form-add-card');
 
 formValidatorAddCard.enableValidation();
 
@@ -49,13 +49,21 @@ const popupWithFormEditProfile = new PopupWithForm('.popup-edit-profile', handle
 
 popupWithFormEditProfile.setEventListeners();
 
-const formValidatorEditProfile = new FormValidator(configSelestors, 'form-edit-profile');
+const formValidatorEditProfile = new FormValidator(configSelectors, 'form-edit-profile');
 
 formValidatorEditProfile.enableValidation();
 
 const popupWithFormDeleteCard = new PopupWithForm('.popup-delete-card', handleDeleteCardFormSubmit);
 
 popupWithFormDeleteCard.setEventListeners();
+
+const popupWithFormEditAvatar = new PopupWithForm('.popup-edit-avatar', handleAvatarFormSubmit);
+
+popupWithFormEditAvatar.setEventListeners();
+
+const formValidatorEditAvatar = new FormValidator(configSelectors, 'form-edit-avatar');
+
+formValidatorEditAvatar.enableValidation();
 
 const section = new Section({
             items: [],
@@ -92,6 +100,16 @@ function editUserProfile(data) {
         });
 }
 
+function editUserAvatar(data) {
+    api.editUserAvatar(data)
+        .then((res) => {
+            userInfo.setUsetAvatar(res.avatar);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
 function postCard(data) {
     api.postCards(data)
         .then((res) => {
@@ -105,7 +123,29 @@ function postCard(data) {
 setUserProfile();
 
 function createCard(data, selector) {
-    const card = new Card(data, selector, handleCardClick, handleDeleteClick);
+    const card = new Card(data, selector, {
+        handleCardClick,
+        handleDeleteClick,
+        putLikeCard: () => {
+            api.putLikeCard(data)
+                .then((res) => {
+                    console.log(res);
+                    card.setLikeInfo(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+        removeLikeCard: () => {
+            api.removeLikeCard(data)
+                .then((res) => {
+                    card.setLikeInfo(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    });
     return card;
 }
 
@@ -116,9 +156,7 @@ function insertCard(data) {
 
 function deleteCard(data) {
     api.deleteCard(data)
-    .then((res) => {
-        // insertCard(res);
-    })
+    .then((res) => res)
     .catch((err) => {
         console.log(err);
     });
@@ -134,20 +172,25 @@ function handleDeleteClick(data, element) {
     popupWithFormDeleteCard.open();
 }
 
-function handleProfileFormSubmit(evt, data) {
-    evt.preventDefault();
+function handleProfileFormSubmit(data) {
+    // evt.preventDefault();
     editUserProfile(data);
     popupWithFormEditProfile.close();
 }
 
-function handleCardFormSubmit(evt, data) {
-    evt.preventDefault();
+function handleAvatarFormSubmit(data) {
+    // evt.preventDefault();
+    editUserAvatar(data);
+    popupWithFormEditAvatar.close();
+}
+
+function handleCardFormSubmit(data) {
+    // evt.preventDefault();
     postCard(data);
     popupWithFormAddCard.close();
 }
 
 function handleDeleteCardFormSubmit(evt) {
-    console.log(cardInfo);
     evt.preventDefault();
     deleteCard(cardInfo);
     elementDeleted.remove();
@@ -163,11 +206,18 @@ function openEditProfilePopup() {
     popupWithFormEditProfile.open();
 }
 
+function openEditAvatarPopup() {
+    formValidatorEditAvatar.toggleButtonState();
+    popupWithFormEditAvatar.open();
+}
+
 function openAddCardPopup() {
     formValidatorAddCard.toggleButtonState();
     popupWithFormAddCard.open();
 }
 
 BUTTON_EDIT.addEventListener('click', openEditProfilePopup);
+
+BUTTON_EDIT_AVATAR.addEventListener('click', openEditAvatarPopup);
 
 BUTTON_ADD.addEventListener('click', openAddCardPopup);
