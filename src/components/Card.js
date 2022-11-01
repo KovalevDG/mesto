@@ -32,7 +32,7 @@ export default class Card {
 
    setLikeInfo = (data) => {
       // console.log(data);
-      this._arrayLikes = data;
+      this._arrayLikes = data.likes;
       this._setCounterLike();
    }
 
