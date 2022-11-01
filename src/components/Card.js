@@ -67,7 +67,7 @@ export default class Card {
       this._elementImage.alt = this._data.name;
       this._elementLikeCounter = this._arrayLikes;
       this._setEventListeners();
-      // this._putLikeCard(this._id);
+      this._putLikeCard(this._id);
       return this._element;
    }
 }
