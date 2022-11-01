@@ -24,10 +24,10 @@ export default class Api {
          .catch((err) => console.log(err));
    }
 
-   putLikeCard(card) {
-      return fetch(this._urlCards + '/' + card._id + '/likes', {
+   putLikeCard(cardId) {
+      return fetch(this._urlCards + '/' + cardId + '/likes', {
          method: 'PUT',
-         body: JSON.stringify(card),
+         body: JSON.stringify(cardId),
          headers: {
             authorization: '7c3683ec-8b7d-4bcf-ad22-d226ef2effb7',
             'Content-Type': 'application/json'

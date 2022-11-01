@@ -72,8 +72,8 @@ const section = new Section({
 
 api.getInitialCards()
     .then((result) => {
-        section.items = result;
-        section.renderItems();
+        // section.items = result;
+        section.renderItems(result);
     })
     .catch((err) => {
         console.log(err);
@@ -126,10 +126,9 @@ function createCard(data, selector) {
     const card = new Card(data, selector, {
         handleCardClick,
         handleDeleteClick,
-        putLikeCard: () => {
-            api.putLikeCard(data)
+        putLikeCard: (cardId) => {
+            api.putLikeCard(cardId)
                 .then((res) => {
-                    console.log(res);
                     card.setLikeInfo(res);
                 })
                 .catch((err) => {
@@ -151,6 +150,7 @@ function createCard(data, selector) {
 
 function insertCard(data) {
     const card = createCard(data, '#card');
+    card.setLikeInfo(data);
     section.addItem(card.createCard());
 }
 
