@@ -27,7 +27,6 @@ export default class Api {
    putLikeCard(cardId) {
       return fetch(this._urlCards + '/' + cardId + '/likes', {
          method: 'PUT',
-         body: JSON.stringify(cardId),
          headers: {
             authorization: '7c3683ec-8b7d-4bcf-ad22-d226ef2effb7',
             'Content-Type': 'application/json'
@@ -105,7 +104,6 @@ export default class Api {
    }
 
    deleteCard(data) {
-      console.log(this._urlCards + '/' + data._id);
       return fetch(this._urlCards + '/' + data._id, {
          method: 'DELETE',
          headers: {

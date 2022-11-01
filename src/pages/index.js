@@ -20,7 +20,7 @@ const options = {
 const userInfo = new UserInfo({
     userName: '.profile__user-name',
     userJob: '.profile__user-job',
-    userAvatar: '.profile__avatar',
+    userAvatar: '.profile__avatar-image',
 });
 
 const api = new Api(options);
@@ -150,7 +150,6 @@ function createCard(data, selector) {
 
 function insertCard(data) {
     const card = createCard(data, '#card');
-    card.setLikeInfo(data);
     section.addItem(card.createCard());
 }
 
@@ -173,19 +172,16 @@ function handleDeleteClick(data, element) {
 }
 
 function handleProfileFormSubmit(data) {
-    // evt.preventDefault();
     editUserProfile(data);
     popupWithFormEditProfile.close();
 }
 
 function handleAvatarFormSubmit(data) {
-    // evt.preventDefault();
     editUserAvatar(data);
     popupWithFormEditAvatar.close();
 }
 
 function handleCardFormSubmit(data) {
-    // evt.preventDefault();
     postCard(data);
     popupWithFormAddCard.close();
 }

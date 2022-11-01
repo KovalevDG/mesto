@@ -12,7 +12,10 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="аватар профиля">
+        <div class="profile__avatar">
+          <img class="profile__avatar-image" src="<%=require('./images/avatar.jpg')%>" alt="аватар профиля">
+          <div class="profile__avatar-overlay"></div>
+        </div>
         <div class="profile__user">
           <h1 class="profile__user-name"></h1>
           <button class="profile__edit-button" type="button"></button>

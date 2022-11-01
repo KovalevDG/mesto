@@ -27,11 +27,9 @@ export default class Card {
 
    _setCounterLike = () => {
       this._likeCounter.textContent = this._arrayLikes.length;
-      // console.log(this._likeCounter);
    }
 
    setLikeInfo = (data) => {
-      // console.log(data);
       this._arrayLikes = data.likes;
       this._setCounterLike();
    }
@@ -54,7 +52,7 @@ export default class Card {
    createCard = () => {
       this._template = document.querySelector(this._selector).content;
       this._element = this._template.cloneNode(true).children[0];
-      this._elementLikeCounter = this._element.querySelector('.element__like-counter');
+      this._likeCounter = this._element.querySelector('.element__like-counter');
       if (this._data.owner.name == this._owner.textContent) {
          this._element.querySelector('.element__delete').hidden = false;
       } else {
@@ -65,9 +63,7 @@ export default class Card {
       this._elementImage = this._element.querySelector('.element__image');
       this._elementImage.src = this._data.link;
       this._elementImage.alt = this._data.name;
-      this._elementLikeCounter = this._arrayLikes;
       this._setEventListeners();
-      this._putLikeCard(this._id);
       return this._element;
    }
 }
