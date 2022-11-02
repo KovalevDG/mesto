@@ -62,7 +62,6 @@ export default class Api {
    }
 
    editUserInfo(data) {
-      console.log(data);
       return fetch(this._urlProfile, {
          method: 'PATCH',
          body: JSON.stringify(data),

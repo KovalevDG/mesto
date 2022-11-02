@@ -46,7 +46,7 @@ export default class Card {
    _setEventListeners = () => {
       this._element.querySelector('.element__delete').addEventListener('click', this._handleClickDeleteCard);
       this._elementImage.addEventListener('click', this._handleClickImage);
-      this._element.querySelector('.element__like').addEventListener('click', this._handleLikeClick);
+      this._element.querySelector('.element__like-icon').addEventListener('click', this._handleLikeClick);
    }
    
    createCard = () => {
