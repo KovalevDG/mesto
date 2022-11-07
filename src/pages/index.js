@@ -11,19 +11,19 @@ import UserInfo from "../components/UserInfo.js";
 let cardInfo;
 let elementDeleted;
 
-const options = {
-    headers: {
-        authorization: '7c3683ec-8b7d-4bcf-ad22-d226ef2effb7'
-    }
-};
-
 const userInfo = new UserInfo({
     userName: '.profile__user-name',
     userJob: '.profile__user-job',
     userAvatar: '.profile__avatar-image',
 });
 
-const api = new Api(options);
+const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-52/',
+    headers: {
+        authorization: '7c3683ec-8b7d-4bcf-ad22-d226ef2effb7',
+        'Content-Type': 'application/json'
+     }
+});
 
 const configSelectors = {
     formSelector: 'form',
@@ -71,9 +71,8 @@ const section = new Section({
         }, '.elements');
 
 api.getInitialCards()
-    .then((result) => {
-        // section.items = result;
-        section.renderItems(result);
+    .then((res) => {
+        section.renderItems(res);
     })
     .catch((err) => {
         console.log(err);
@@ -186,8 +185,7 @@ function handleCardFormSubmit(data) {
     popupWithFormAddCard.close();
 }
 
-function handleDeleteCardFormSubmit(evt) {
-    evt.preventDefault();
+function handleDeleteCardFormSubmit() {
     deleteCard(cardInfo);
     elementDeleted.remove();
     elementDeleted = null;

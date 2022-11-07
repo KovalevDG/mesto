@@ -34,6 +34,22 @@ export default class Card {
       this._setCounterLike();
    }
 
+   _setMyLikes = () => {
+      this._data.likes.forEach(element => {
+         if (element.name == this._owner.textContent) {
+            this._element.querySelector('.element__like-icon').classList.add('element_like-active');
+         }
+      });
+   }
+
+   _hiddenDeleteIcon = () => {
+      // if (this._data.owner.name == this._owner.textContent) {
+      //    this._element.querySelector('.element__delete').hidden = false;
+      // } else {
+      //    this._element.querySelector('.element__delete').hidden = true;
+      // }
+   }
+
    _handleClickDeleteCard = () => {
       this._handleDeleteClick(this._data, this._element);
    }
@@ -53,17 +69,22 @@ export default class Card {
       this._template = document.querySelector(this._selector).content;
       this._element = this._template.cloneNode(true).children[0];
       this._likeCounter = this._element.querySelector('.element__like-counter');
+      // this._hiddenDeleteIcon();
       if (this._data.owner.name == this._owner.textContent) {
          this._element.querySelector('.element__delete').hidden = false;
       } else {
          this._element.querySelector('.element__delete').hidden = true;
       }
       this._element.querySelector('.element__text').textContent = this._data.name;
+      this._setMyLikes();
       this._setCounterLike();
+      // console.log(this._data.name);
       this._elementImage = this._element.querySelector('.element__image');
       this._elementImage.src = this._data.link;
       this._elementImage.alt = this._data.name;
       this._setEventListeners();
       return this._element;
    }
+
+
 }
