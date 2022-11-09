@@ -1,4 +1,4 @@
-import {BUTTON_EDIT, BUTTON_EDIT_AVATAR, BUTTON_ADD, NAME_INPUT, JOB_INPUT} from "../utils/constants.js";
+import {BUTTON_EDIT, BUTTON_EDIT_AVATAR, BUTTON_ADD, CONFIG_SELECTORS} from "../utils/constants.js";
 import './index.css';
 import Api from "../components/Api.js";
 import Card from "../components/Card.js";
@@ -11,6 +11,10 @@ import UserInfo from "../components/UserInfo.js";
 let cardInfo;
 let elementDeleted;
 let userId;
+
+const formAddCard = document.forms['form-add-card'];
+const formEditProfile = document.forms['form-edit-profile'];
+const formEditAvatar = document.forms['form-edit-avatar'];
 
 const userInfo = new UserInfo({
     userName: '.profile__user-name',
@@ -26,14 +30,6 @@ const api = new Api({
      }
 });
 
-const configSelectors = {
-    formSelector: 'form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__submit-button',
-    inputErrorClass: 'form__input_type-error',
-    errorClass: 'form__input-error_active',
-}
-
 const popupWithImage = new PopupWithImage('.popup-image');
 
 popupWithImage.setEventListeners();
@@ -42,7 +38,7 @@ const popupWithFormAddCard = new PopupWithForm('.popup-add-card', handleCardForm
 
 popupWithFormAddCard.setEventListeners();
 
-const formValidatorAddCard = new FormValidator(configSelectors, 'form-add-card');
+const formValidatorAddCard = new FormValidator(CONFIG_SELECTORS, formAddCard);
 
 formValidatorAddCard.enableValidation();
 
@@ -50,7 +46,7 @@ const popupWithFormEditProfile = new PopupWithForm('.popup-edit-profile', handle
 
 popupWithFormEditProfile.setEventListeners();
 
-const formValidatorEditProfile = new FormValidator(configSelectors, 'form-edit-profile');
+const formValidatorEditProfile = new FormValidator(CONFIG_SELECTORS, formEditProfile);
 
 formValidatorEditProfile.enableValidation();
 
@@ -62,7 +58,7 @@ const popupWithFormEditAvatar = new PopupWithForm('.popup-edit-avatar', handleAv
 
 popupWithFormEditAvatar.setEventListeners();
 
-const formValidatorEditAvatar = new FormValidator(configSelectors, 'form-edit-avatar');
+const formValidatorEditAvatar = new FormValidator(CONFIG_SELECTORS, formEditAvatar);
 
 formValidatorEditAvatar.enableValidation();
 
@@ -70,6 +66,17 @@ const section = new Section({
             items: [],
             render: insertCard,
         }, '.elements');
+
+// Promise.all([getUserInfo(), getCards()])
+//         // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
+
+//     .then(([userData, cards]) => {
+//               // тут установка данных пользователя
+//               // и тут отрисовка карточек
+//     })
+//     .catch(err => {
+//             console.log(err);
+//     });
 
 api.getInitialCards()
     .then((res) => {
@@ -92,7 +99,7 @@ function setUserProfile() {
 }
 
 function editUserProfile(data) {
-    api.editUserInfo(data)
+    return api.editUserInfo(data)
         .then((res) => {
             userInfo.setUserInfo(res);
         })
@@ -102,7 +109,7 @@ function editUserProfile(data) {
 }
 
 function editUserAvatar(data) {
-    api.editUserAvatar(data)
+    return api.editUserAvatar(data)
         .then((res) => {
             userInfo.setUsetAvatar(res.avatar);
         })
@@ -112,9 +119,8 @@ function editUserAvatar(data) {
 }
 
 function postCard(data) {
-    api.postCards(data)
-        .then((res) => {
-            
+    return api.postCards(data)
+        .then((res) => {   
             insertCard(res);
         })
         .catch((err) => {
@@ -156,7 +162,7 @@ function insertCard(data) {
 }
 
 function deleteCard(data) {
-    api.deleteCard(data)
+    return api.deleteCard(data)
     .then((res) => res)
     .catch((err) => {
         console.log(err);
@@ -174,42 +180,39 @@ function handleDeleteClick(data, element) {
 }
 
 function handleProfileFormSubmit(data) {
-    editUserProfile(data);
-    popupWithFormEditProfile.close();
+    return editUserProfile(data);
 }
 
 function handleAvatarFormSubmit(data) {
-    editUserAvatar(data);
-    popupWithFormEditAvatar.close();
+    return editUserAvatar(data);
 }
 
 function handleCardFormSubmit(data) {
-    postCard(data);
-    popupWithFormAddCard.close();
+    return postCard(data);
 }
 
 function handleDeleteCardFormSubmit() {
-    deleteCard(cardInfo);
-    elementDeleted.remove();
-    elementDeleted = null;
-    popupWithFormDeleteCard.close(); 
+    return deleteCard(cardInfo)
+        .then(() => {
+            elementDeleted.remove();
+            elementDeleted = null;
+        })
 }
 
 function openEditProfilePopup() {
     const profile = userInfo.getUserInfo();
-    NAME_INPUT.value = profile.userName;
-    JOB_INPUT.value = profile.userJob;
-    formValidatorEditProfile.toggleButtonState();
+    popupWithFormEditProfile.setInputValues(profile);
+    formValidatorEditAvatar.resetValidation();
     popupWithFormEditProfile.open();
 }
 
 function openEditAvatarPopup() {
-    formValidatorEditAvatar.toggleButtonState();
+    formValidatorEditAvatar.resetValidation();
     popupWithFormEditAvatar.open();
 }
 
 function openAddCardPopup() {
-    formValidatorAddCard.toggleButtonState();
+    formValidatorEditAvatar.resetValidation();
     popupWithFormAddCard.open();
 }
 
