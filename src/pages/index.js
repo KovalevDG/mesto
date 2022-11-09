@@ -10,6 +10,7 @@ import UserInfo from "../components/UserInfo.js";
 
 let cardInfo;
 let elementDeleted;
+let userId;
 
 const userInfo = new UserInfo({
     userName: '.profile__user-name',
@@ -83,6 +84,7 @@ function setUserProfile() {
         .then((res) => {
             userInfo.setUsetAvatar(res.avatar);
             userInfo.setUserInfo(res);
+            userId = res._id;
         })
         .catch((err) => {
             console.log(err);
@@ -112,6 +114,7 @@ function editUserAvatar(data) {
 function postCard(data) {
     api.postCards(data)
         .then((res) => {
+            
             insertCard(res);
         })
         .catch((err) => {
@@ -122,7 +125,7 @@ function postCard(data) {
 setUserProfile();
 
 function createCard(data, selector) {
-    const card = new Card(data, selector, {
+    const card = new Card(data, selector, userId,{
         handleCardClick,
         handleDeleteClick,
         putLikeCard: (cardId) => {

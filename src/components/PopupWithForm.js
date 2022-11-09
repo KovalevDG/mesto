@@ -7,19 +7,33 @@ export default class PopupWithForm extends Popup {
       this._popup = document.querySelector(this._selector);
       this._popupForm = this._popup.querySelector('.form');
       this._submitButton = this._popupForm.querySelector('.form__submit-button');
+      this._textSubmitButton = this._submitButton.textContent;
    }
+
+   renderLoading(isLoading, loadingText='Сохранение...') {
+      if (isLoading) {
+        this._submitButton.textContent = loadingText;
+      } else {
+        this._submitButton.textContent = this._submitBtnText;
+      }
+    }
 
    _setSubmitPopup = (evt) => {
       evt.preventDefault();
-      const textSubmitButton = this._submitButton.textContent;
-      this._submitButton.textContent = 'Сохранение...';
       this._handleSubmit(this._getInputValues());
-      this._submitButton.textContent = textSubmitButton;
    }
 
    setEventListeners = () => {
       super.setEventListeners();
-      this._popupForm.addEventListener('submit', this._setSubmitPopup);
+      this._popupForm.addEventListener('submit', (evt) => {
+         evt.preventDefault();
+         this.renderLoading(true);
+         this._handleSubmit(this._getInputValues())
+            .then(() => this.close())
+            .finally(() => {
+               this.renderLoading(false);
+            })
+      });
    }
 
    _getInputValues = () => {

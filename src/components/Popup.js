@@ -2,12 +2,10 @@ export default class Popup {
    constructor(selector) {
       this._selector = selector;
       this._popup = document.querySelector(this._selector);
-      this._formInputErrorMessage = this._popup.querySelectorAll('.form__input-error');
       this._formInput = this._popup.querySelectorAll('.form__input');
    }
 
    open() {
-      this._eraseErrorMesseages();
       this._popup.classList.add('popup_opened');
       document.addEventListener('keydown', this._handleEscClose);
    }
@@ -15,7 +13,6 @@ export default class Popup {
    _eraseErrorMesseages() {
       this._formInputErrorMessage.forEach((element) => {
          element.textContent = '';
-         element.classList.remove('form__input-error_active');
       });
       this._formInput.forEach((element) => {
          element.classList.remove('form__input_type-error');

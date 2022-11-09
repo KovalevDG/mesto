@@ -1,13 +1,13 @@
 export default class Card {
-   constructor(data, selector, objFunctioins) {
+   constructor(data, selector, userId, objFunctioins) {
       this._data = data;
       this._id = data._id;
+      this._userId = userId;
       this._selector = selector;
       this._handleCardClick = objFunctioins.handleCardClick;
       this._handleDeleteClick = objFunctioins.handleDeleteClick;
       this._putLikeCard = objFunctioins.putLikeCard;
       this._removeLikeCard = objFunctioins.removeLikeCard;
-      this._owner = document.querySelector('.profile__user-name');
       this._arrayLikes = this._data.likes;
    }
 
@@ -36,18 +36,10 @@ export default class Card {
 
    _setMyLikes = () => {
       this._data.likes.forEach(element => {
-         if (element.name == this._owner.textContent) {
-            this._element.querySelector('.element__like-icon').classList.add('element_like-active');
+         if (element._id == this._userId) {
+            this._elementLikeIcon.classList.add('element_like-active');
          }
       });
-   }
-
-   _hiddenDeleteIcon = () => {
-      // if (this._data.owner.name == this._owner.textContent) {
-      //    this._element.querySelector('.element__delete').hidden = false;
-      // } else {
-      //    this._element.querySelector('.element__delete').hidden = true;
-      // }
    }
 
    _handleClickDeleteCard = () => {
@@ -60,7 +52,7 @@ export default class Card {
    }
 
    _setEventListeners = () => {
-      this._element.querySelector('.element__delete').addEventListener('click', this._handleClickDeleteCard);
+      this._elementDeleteIcon.addEventListener('click', this._handleClickDeleteCard);
       this._elementImage.addEventListener('click', this._handleClickImage);
       this._element.querySelector('.element__like-icon').addEventListener('click', this._handleLikeClick);
    }
@@ -69,16 +61,16 @@ export default class Card {
       this._template = document.querySelector(this._selector).content;
       this._element = this._template.cloneNode(true).children[0];
       this._likeCounter = this._element.querySelector('.element__like-counter');
-      // this._hiddenDeleteIcon();
-      if (this._data.owner.name == this._owner.textContent) {
-         this._element.querySelector('.element__delete').hidden = false;
+      this._elementLikeIcon = this._element.querySelector('.element__like-icon');
+      this._elementDeleteIcon = this._element.querySelector('.element__delete');
+      if (this._data.owner._id == this._userId) {
+         this._elementDeleteIcon.hidden = false;
       } else {
-         this._element.querySelector('.element__delete').hidden = true;
+         this._elementDeleteIcon.hidden = true;
       }
       this._element.querySelector('.element__text').textContent = this._data.name;
       this._setMyLikes();
       this._setCounterLike();
-      // console.log(this._data.name);
       this._elementImage = this._element.querySelector('.element__image');
       this._elementImage.src = this._data.link;
       this._elementImage.alt = this._data.name;

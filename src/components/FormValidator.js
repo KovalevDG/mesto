@@ -55,5 +55,6 @@ export default class FormValidator {
    enableValidation() {
       this._formElement = document.forms[this._selector];
       this._setEventListeners(this._formElement);
+      // this._setEventListeners();
    }
 }
