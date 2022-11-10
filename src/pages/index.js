@@ -67,36 +67,26 @@ const section = new Section({
             render: insertCard,
         }, '.elements');
 
-// Promise.all([getUserInfo(), getCards()])
-//         // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
+let getCards = api.getInitialCards()
+        .then((res) => {
+            return res;
+        });
 
-//     .then(([userData, cards]) => {
-//               // тут установка данных пользователя
-//               // и тут отрисовка карточек
-//     })
-//     .catch(err => {
-//             console.log(err);
-//     });
-
-api.getInitialCards()
+let getUserInfo = api.getUserInfo()
     .then((res) => {
-        section.renderItems(res);
-    })
-    .catch((err) => {
-        console.log(err);
+        return res;
     });
 
-function setUserProfile() {
-    api.getUserInfo()
-        .then((res) => {
-            userInfo.setUsetAvatar(res.avatar);
-            userInfo.setUserInfo(res);
-            userId = res._id;
-        })
-        .catch((err) => {
+Promise.all([getUserInfo, getCards])
+    .then(([userData, cards]) => {
+        userInfo.setUsetAvatar(userData.avatar);
+        userInfo.setUserInfo(userData);
+        userId = userData._id;
+        section.renderItems(cards);
+    })
+    .catch(err => {
             console.log(err);
-        });
-}
+    });
 
 function editUserProfile(data) {
     return api.editUserInfo(data)
@@ -127,8 +117,6 @@ function postCard(data) {
             console.log(err);
         });
 }
-
-setUserProfile();
 
 function createCard(data, selector) {
     const card = new Card(data, selector, userId,{
