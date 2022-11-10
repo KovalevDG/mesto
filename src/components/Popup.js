@@ -10,15 +10,6 @@ export default class Popup {
       document.addEventListener('keydown', this._handleEscClose);
    }
 
-   _eraseErrorMesseages() {
-      this._formInputErrorMessage.forEach((element) => {
-         element.textContent = '';
-      });
-      this._formInput.forEach((element) => {
-         element.classList.remove('form__input_type-error');
-      });
-   }
-
    close() {
       this._popup.classList.remove('popup_opened');
       document.removeEventListener('keydown', this._handleEscClose);

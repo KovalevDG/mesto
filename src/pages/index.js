@@ -67,17 +67,7 @@ const section = new Section({
             render: insertCard,
         }, '.elements');
 
-let getCards = api.getInitialCards()
-        .then((res) => {
-            return res;
-        });
-
-let getUserInfo = api.getUserInfo()
-    .then((res) => {
-        return res;
-    });
-
-Promise.all([getUserInfo, getCards])
+Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([userData, cards]) => {
         userInfo.setUsetAvatar(userData.avatar);
         userInfo.setUserInfo(userData);
@@ -88,42 +78,12 @@ Promise.all([getUserInfo, getCards])
             console.log(err);
     });
 
-function editUserProfile(data) {
-    return api.editUserInfo(data)
-        .then((res) => {
-            userInfo.setUserInfo(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-}
-
-function editUserAvatar(data) {
-    return api.editUserAvatar(data)
-        .then((res) => {
-            userInfo.setUsetAvatar(res.avatar);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-}
-
-function postCard(data) {
-    return api.postCards(data)
-        .then((res) => {   
-            insertCard(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-}
-
 function createCard(data, selector) {
     const card = new Card(data, selector, userId,{
         handleCardClick,
         handleDeleteClick,
         putLikeCard: (cardId) => {
-            api.putLikeCard(cardId)
+            return api.putLikeCard(cardId)
                 .then((res) => {
                     card.setLikeInfo(res);
                 })
@@ -132,7 +92,7 @@ function createCard(data, selector) {
                 });
         },
         removeLikeCard: () => {
-            api.removeLikeCard(data)
+            return api.removeLikeCard(data)
                 .then((res) => {
                     card.setLikeInfo(res);
                 })
@@ -149,14 +109,6 @@ function insertCard(data) {
     section.addItem(card.createCard());
 }
 
-function deleteCard(data) {
-    return api.deleteCard(data)
-    .then((res) => res)
-    .catch((err) => {
-        console.log(err);
-    });
-}
-
 function handleCardClick(data) {
     popupWithImage.open(data);
 }
@@ -168,29 +120,50 @@ function handleDeleteClick(data, element) {
 }
 
 function handleProfileFormSubmit(data) {
-    return editUserProfile(data);
+    return api.editUserInfo(data)
+            .then((res) => {
+                userInfo.setUserInfo(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 }
 
 function handleAvatarFormSubmit(data) {
-    return editUserAvatar(data);
+    return api.editUserAvatar(data)
+            .then((res) => {
+                userInfo.setUsetAvatar(res.avatar);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 }
 
 function handleCardFormSubmit(data) {
-    return postCard(data);
+    return api.postCards(data)
+            .then((res) => {   
+                insertCard(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 }
 
 function handleDeleteCardFormSubmit() {
-    return deleteCard(cardInfo)
+    return api.deleteCard(cardInfo)
         .then(() => {
             elementDeleted.remove();
             elementDeleted = null;
         })
+        .catch((err) => {
+            console.log(err);
+        });
 }
 
 function openEditProfilePopup() {
     const profile = userInfo.getUserInfo();
     popupWithFormEditProfile.setInputValues(profile);
-    formValidatorEditAvatar.resetValidation();
+    formValidatorEditProfile.resetValidation();
     popupWithFormEditProfile.open();
 }
 
@@ -200,7 +173,7 @@ function openEditAvatarPopup() {
 }
 
 function openAddCardPopup() {
-    formValidatorEditAvatar.resetValidation();
+    formValidatorAddCard.resetValidation();
     popupWithFormAddCard.open();
 }
 

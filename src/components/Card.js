@@ -17,11 +17,11 @@ export default class Card {
 
    _handleLikeClick = (evt) => {
       if (evt.target.classList.contains('element_like-active')) {
-         evt.target.classList.remove('element_like-active');
-         this._removeLikeCard(this._id);
+         this._removeLikeCard(this._id)
+            .then(() => evt.target.classList.remove('element_like-active'));
       } else {
-         evt.target.classList.add('element_like-active');
-         this._putLikeCard(this._id);
+         this._putLikeCard(this._id)
+            .then(() => evt.target.classList.add('element_like-active'));
       }
    }
 

@@ -16,7 +16,7 @@
 @media all and (max-width: 597px) {
 	.popup-delete-card__container {
 		width: 282px;
-		min-height: 322px;
+		min-height: 151px;
 		padding: 25px 22px;
 	}
 }
